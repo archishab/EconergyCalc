@@ -1,7 +1,7 @@
-## Introduction
+## 📍 Introduction
 This project is done for the ENSE 405: Designing Apps for Learning and Collaboration class in the Fall 2023 Semester under the supervision of Dr. Tim Maciag. This project aims to explore the design and development of community-focused software to enhance collaboration and learning aligned with one or more of the 17 UN Sustainable Development Goals (SDGs) and engage in creating digital habitats for specific communities, blending new software engineering processes with your prior academic and work experiences.
 
-## UN SDG(s)
+## ☑️ UN SDG(s)
 - **Goal 7**: Ensure access to affordable, reliable, sustainable and modern energy for all
 - **Goal 11**: Make cities and human settlements inclusive, safe, resilient and sustainable
 

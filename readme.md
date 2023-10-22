@@ -1,8 +1,9 @@
 <div align="center">
-    ![EconergyCalc Logo](02. Project Development/Assets/Logo.png)
+   <img src="https://github.com/archishab/EconergyCalc/assets/78244432/b8f593b6-2fa6-4cf5-8311-0e264c2cc529">
 </div>
 
-# EconergyCalc - Household Energy Consumption Calculator
+### EconergyCalc - Household Energy Consumption Calculator
+
 ## 📍 Introduction
 This project is done for the ENSE 405: Designing Apps for Learning and Collaboration class in the Fall 2023 Semester under the supervision of Dr. Tim Maciag. This project aims to explore the design and development of community-focused software to enhance collaboration and learning aligned with one or more of the 17 UN Sustainable Development Goals (SDGs) and engage in creating digital habitats for specific communities, blending new software engineering processes with your prior academic and work experiences.
 

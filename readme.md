@@ -16,3 +16,6 @@ This project aims to build an interactive web application where users can add or
 
 ## 🧭 Project background/Business Opportunity
 In line with UN Sustainable Development Goals 7 (Affordable and Sustainable Energy) and 11 (Sustainable Cities and Communities), this project addresses the pressing global challenge of household energy consumption. As urbanization continues to rise, energy consumption in residential areas is a critical concern. The project aims to create an innovative web application that empowers individuals to make informed decisions about their energy use, ultimately contributing to reduced carbon emissions and more sustainable living. As traditional energy sources are often non-renewable and contribute to environmental degradation and climate change, many individuals need more awareness of their energy usage patterns and the ecological impact of their appliances. The project aims to empower individuals to make informed choices about their energy consumption, promoting sustainable living and, as a result, contributing to the reduction of greenhouse gas emissions and environmental impact.
+
+## 📽️ Project Vlogs
+- [Vlog 1 - Project Planning and Initialization](https://youtu.be/W8Ec0j0buvk)

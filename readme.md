@@ -1,5 +1,5 @@
 <div align="center">
-    ![EconergyCalc Logo](https://github.com/archishab/EconergyCalc/blob/main/02.%20Project%20Development/Assets/Logo.png)
+    ![EconergyCalc Logo](02. Project Development/Assets/Logo.png)
 </div>
 
 # EconergyCalc - Household Energy Consumption Calculator

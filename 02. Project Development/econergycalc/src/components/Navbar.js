@@ -2,6 +2,9 @@ import LogoIcon from '../assets/LogoIcon.png';
 import Logo from '../assets/Logo.png';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Link
+} from "react-router-dom";
 
 
 export default function Navbar() {
@@ -21,16 +24,16 @@ export default function Navbar() {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/">Home</a>
+                  <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">Add Appliance</a>
+                  <Link className="nav-link" to="/add">Add Appliance</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">Recommendations</a>
+                  <Link className="nav-link" to="/recommendations">Recommendations</Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">Forum</a>
+                  <Link className="nav-link" to="/">Forum</Link>
                 </li>
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">

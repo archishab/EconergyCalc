@@ -1,7 +1,7 @@
 // import LogoIcon from './assets/LogoIcon.png';
 // import Logo from './assets/Logo.png';
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar.js';
 import AddApplianceForm from './components/AddApplianceForm.js';
 import Recommendations from './components/Recommendations.js';
 

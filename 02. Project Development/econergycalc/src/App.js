@@ -15,8 +15,8 @@ function App() {
     <Navbar />
       <div>
         <Routes>
-          <Route path="/recommendations" element={<Recommendations />} />
-          <Route path="/add" element={
+          <Route exact path="/recommendations" element={<Recommendations />} />
+          <Route exact path="/add" element={
             <div className="container my-5 px-5">
               <AddApplianceForm heading="Add New Appliance" />
             </div>

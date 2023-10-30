@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.sidenav {
+  width: 280px;
+}
+
+.form {
+  width: 500px;
+}
+

@@ -24,7 +24,7 @@ export default function Navbar() {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li className="nav-item">
-                  <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                  <Link className="nav-link active" aria-current="page" to="/dashboard">Dashboard</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/add">Add Appliance</Link>

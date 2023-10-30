@@ -1,3 +1,4 @@
+import "../App.css"; 
 import React, {useState} from "react";
 
 export default function AddApplianceForm(props) {
@@ -12,7 +13,7 @@ export default function AddApplianceForm(props) {
 
     const [appliance, addedAppliance] = useState('Select Appliance Type');
   return (
-    <div>
+    <div className="container form my-5">
         <h3>{props.heading}</h3>
       <form>
         <div className="mb-3">

@@ -1,26 +1,43 @@
-const express = require('express');
-const { body, query, validationResult } = require('express-validator');
-const User = require('../models/User');
+const express = require("express");
+const { body, query, validationResult } = require("express-validator");
+const User = require("../models/User");
 const router = express.Router();
 
-
-// Create a user using: POST "/api/auth/"
-router.post('/', [
-    body('username', 'Username cannot be empty').isLength({ min: 1 }),
-    body('email', 'Email must be valid').isEmail(),
-    body('password', 'Password must be more than 5 characters').isLength({ min: 5 })
-],(req, res)=>{
+// Create a user using: POST "/api/auth/createuser"
+router.post(
+  "/createuser",
+  [
+    body("username", "Username cannot be empty").isLength({ min: 1 }),
+    body("email", "Email must be valid").isEmail(),
+    body("password", "Password must be more than 5 characters").isLength({
+      min: 5,
+    }),
+  ],
+  async (req, res) => {
+    //if there are errors, return bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    };
-    User.create({
+      return res.status(400).json({ errors: errors.array() });
+    }
+    // check whether user with this email exists already
+    try {
+      let user = await User.findOne({ email: req.body.email });
+      if (user) {
+        return res.status(400).json({
+          error: "User with this email already exists. Please log in.",
+        });
+      }
+      user = await User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
-    }).then(user => res.json(user))
-    .catch(err=>{console.log(err)
-    res.json({error: 'Please enter a unique value for email and username', message: err.message})});
-});
+        password: req.body.password,
+      });
+      res.json({ user });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Some error occured");
+    }
+  }
+);
 
 module.exports = router;

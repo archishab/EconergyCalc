@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const applianceSchema = new Schema({
   applianceType: {
@@ -23,4 +24,4 @@ const applianceSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("notes", applianceSchema);
+module.exports = mongoose.model("appliances", applianceSchema);

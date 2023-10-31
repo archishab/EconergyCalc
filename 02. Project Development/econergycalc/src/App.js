@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -38,8 +39,8 @@ function App() {
             />
             <Route
               exact
-              path="/add"
-              element={<AddApplianceForm heading="Add New Appliance" />}
+              path="/dashboard"
+              element={<Dashboard />}
             />
           </Routes>
         </div>

@@ -22,6 +22,10 @@ const applianceSchema = new Schema({
     type: Number,
     required: true,
   },
+  energyStarCompliant: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("appliances", applianceSchema);

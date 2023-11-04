@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import BigLogo from "../assets/BigLogo.png";
 
 import { Link } from "react-router-dom";

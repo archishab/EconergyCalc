@@ -12,39 +12,33 @@ import Recommendations from "./components/Recommendations";
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <div className="wrapper">
-          <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route
-              exact
-              path="/login"
-              element={<Login heading="Login"/>}
-            />
-            <Route
-              exact
-              path="/signup"
-              element={<SignUp heading="Sign Up"/>}
-            />
-            <Route
-              exact
-              path="/recommendations"
-              element={<Recommendations />}
-            />
-            <Route
-              exact
-              path="/add"
-              element={<AddApplianceForm heading="Add New Appliance" />}
-            />
-            <Route
-              exact
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-          </Routes>
-        </div>
-      </BrowserRouter>
+      <applianceState>
+        <BrowserRouter>
+          <div className="wrapper">
+            <Navbar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/login" element={<Login heading="Login" />} />
+              <Route
+                exact
+                path="/signup"
+                element={<SignUp heading="Sign Up" />}
+              />
+              <Route
+                exact
+                path="/recommendations"
+                element={<Recommendations />}
+              />
+              <Route
+                exact
+                path="/add"
+                element={<AddApplianceForm heading="Add New Appliance" />}
+              />
+              <Route exact path="/dashboard" element={<Dashboard />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </applianceState>
     </>
   );
 }

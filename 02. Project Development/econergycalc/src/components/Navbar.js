@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import LogoIcon from "../assets/LogoIcon.png";
 import FullLogo from "../assets/FullLogo.png";
 
 export default function Navbar() {
+  let location = useLocation();
+
+  useEffect(() => {
+    console.log(location.pathname);
+  }, [location]);
+
   return (
     <>
       <nav className="navbar bg-body-tertiary d-flex">
@@ -26,31 +32,56 @@ export default function Navbar() {
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="full-height d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary ">
-              < div className="">
-              <Link className="navbar-brand" to="/">
-              <img src={FullLogo} alt="Bootstrap" width="300" />
-              </Link>
-              <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div> 
+              <div className="">
+                <Link className="navbar-brand" to="/">
+                  <img src={FullLogo} alt="Bootstrap" width="300" />
+                </Link>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
               <hr />
               <ul className="nav nav-pills flex-column mb-auto">
                 <li>
-                  <Link to="/dashboard" className="nav-link link-body-emphasis">
+                  <Link
+                    to="/dashboard"
+                    className={`nav-link link-body-emphasis ${
+                      location.pathname === "/dashboard" ? "active" : ""
+                    }`}
+                  >
                     Dashboard
                   </Link>
                 </li>
                 <li>
-                  <Link to="/add" className="nav-link link-body-emphasis">
+                  <Link
+                    to="/add"
+                    className={`nav-link link-body-emphasis ${
+                      location.pathname === "/add" ? "active" : ""
+                    }`}
+                  >
                     Add Appliance
                   </Link>
                 </li>
                 <li>
-                  <Link to="/recommendations" className="nav-link link-body-emphasis">
+                  <Link
+                    to="/recommendations"
+                    className={`nav-link link-body-emphasis ${
+                      location.pathname === "/recommendations" ? "active" : ""
+                    }`}
+                  >
                     Recommendations
                   </Link>
                 </li>
                 <li>
-                  <Link to="/recommendations" className="nav-link link-body-emphasis">
+                  <Link
+                    to="/recommendations"
+                    className={`nav-link link-body-emphasis ${
+                      location.pathname === "/forum" ? "active" : ""
+                    }`}
+                  >
                     Forum
                   </Link>
                 </li>
@@ -72,7 +103,10 @@ export default function Navbar() {
                   />
                   <strong>mdo</strong>
                 </Link>
-                <ul className="user-menu dropdown-menu text-small shadow" data-popper-placement="top-star">
+                <ul
+                  className="user-menu dropdown-menu text-small shadow"
+                  data-popper-placement="top-star"
+                >
                   <li>
                     <Link className="dropdown-item" to="#">
                       Account Settings

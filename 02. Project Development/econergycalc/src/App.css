@@ -60,4 +60,8 @@
   transform: translate3d(0px, -34px, 0px);
 }
 
+.card {
+  width: 18rem;
+}
+
 

@@ -8,14 +8,16 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import Recommendations from "./components/Recommendations";
+import ApplianceState from "./context/appliances/ApplianceState";
 
 function App() {
   return (
     <>
-      <applianceState>
+      <ApplianceState>
         <BrowserRouter>
           <div className="wrapper">
             <Navbar />
+            <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/login" element={<Login heading="Login" />} />
@@ -36,9 +38,10 @@ function App() {
               />
               <Route exact path="/dashboard" element={<Dashboard />} />
             </Routes>
+            </div>
           </div>
         </BrowserRouter>
-      </applianceState>
+        </ApplianceState>
     </>
   );
 }

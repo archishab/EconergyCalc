@@ -8,7 +8,7 @@ const router = express.Router();
 
 const JWT_SECRET = "secretkey";
 
-// ROUTE 1: Create a user using: POST "/api/auth/createuser"
+// ROUTE 1: Create a user using: POST "/api/auth/createuser". No login required
 router.post(
   "/createuser",
   [

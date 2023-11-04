@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const applianceSchema = new Schema({
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
   applianceType: {
     type: String,
     required: true,
@@ -16,16 +20,19 @@ const applianceSchema = new Schema({
   },
   usageDuration: {
     type: Number,
-    required: true,
   },
   quantity: {
     type: Number,
     required: true,
   },
-  energyStarCompliant: {
+  active: {
     type: Boolean,
     required: true,
   },
+  // energyStarCompliant: {
+  //   type: Boolean,
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model("appliances", applianceSchema);

@@ -3,7 +3,7 @@ const router = express.Router();
 const { body, query, validationResult } = require("express-validator");
 const Appliance = require("../models/Appliance");
 
-// Create an appliance using: POST "/api/appliances/addappliance"
+// ROUTE 1: Create an appliance using: POST "/api/appliances/addappliance"
 router.post(
     "/addappliance", [
         body("appliance", "Appliance cannot be empty").isLength({min: 1}),
@@ -25,5 +25,7 @@ router.post(
 
         res.json({ appliance });
     });
+
+// ROUTE 2: Create an appliance using: POST "/api/appliances/fetchallappliance"
 
 module.exports = router;

@@ -106,8 +106,6 @@ router.put("/updateappliance/:id", fetchuser, async (req, res) => {
 
 // ROUTE 4: Delete existing appliance : DELETE "/api/appliances/deleteappliance". Login required
 router.delete("/deleteappliance/:id", fetchuser, async (req, res) => {
-  const { applianceType, applianceName, powerRating, quantity, active } =
-    req.body;
   try {
     //Find appliance to be deleted and delete it
     let appliance = await Appliance.findById(req.params.id);

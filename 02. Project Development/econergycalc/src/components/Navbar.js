@@ -25,7 +25,7 @@ export default function Navbar() {
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
           >
-            <div class="full-height d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary ">
+            <div className="full-height d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary ">
               < div className="">
               <Link className="navbar-brand" to="/">
               <img src={FullLogo} alt="Bootstrap" width="300" />
@@ -33,43 +33,33 @@ export default function Navbar() {
               <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div> 
               <hr />
-              <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                  <a href="#" class="nav-link active" aria-current="page">
-                    <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                    Home
-                  </a>
-                </li>
+              <ul className="nav nav-pills flex-column mb-auto">
                 <li>
-                  <a href="#" class="nav-link link-body-emphasis">
-                    <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                  <Link to="/dashboard" className="nav-link link-body-emphasis">
                     Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" class="nav-link link-body-emphasis">
-                    <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                    Orders
-                  </a>
+                  <Link to="/add" className="nav-link link-body-emphasis">
+                    Add Appliance
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" class="nav-link link-body-emphasis">
-                    <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                    Products
-                  </a>
+                  <Link to="/recommendations" className="nav-link link-body-emphasis">
+                    Recommendations
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" class="nav-link link-body-emphasis">
-                    <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                    Customers
-                  </a>
+                  <Link to="/recommendations" className="nav-link link-body-emphasis">
+                    Forum
+                  </Link>
                 </li>
               </ul>
               <hr />
-              <div class="dropdown">
-                <a
-                  href="#"
-                  class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+              <div className="dropup">
+                <Link
+                  to="/"
+                  className="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
@@ -78,33 +68,23 @@ export default function Navbar() {
                     alt=""
                     width="32"
                     height="32"
-                    class="rounded-circle me-2"
+                    className="rounded-circle me-2"
                   />
                   <strong>mdo</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
+                </Link>
+                <ul className="user-menu dropdown-menu text-small shadow" data-popper-placement="top-star">
                   <li>
-                    <a class="dropdown-item" href="#">
-                      New project...
-                    </a>
+                    <Link className="dropdown-item" to="#">
+                      Account Settings
+                    </Link>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
-                      Settings
-                    </a>
+                    <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">
+                    <Link className="dropdown-item" to="#">
                       Sign out
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

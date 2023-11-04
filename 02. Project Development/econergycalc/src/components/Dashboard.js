@@ -1,5 +1,5 @@
-import PlaceHolderImage from "../assets/PlaceHolderImage.jpg";
 import React from "react";
+import PlaceHolderImage from "../assets/PlaceHolderImage.jpg";
 
 export default function Dashboard() {
   return (

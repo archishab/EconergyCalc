@@ -1,8 +1,8 @@
-import LogoIcon from "../assets/LogoIcon.png";
-import FullLogo from "../assets/FullLogo.png";
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import LogoIcon from "../assets/LogoIcon.png";
+import FullLogo from "../assets/FullLogo.png";
 
 export default function Navbar() {
   return (

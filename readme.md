@@ -1,5 +1,5 @@
 <div align="center">
-   <img src="https://github.com/archishab/EconergyCalc/assets/78244432/b8f593b6-2fa6-4cf5-8311-0e264c2cc529">
+   <img src="https://github.com/archishab/EconergyCalc/blob/main/02.%20Project%20Development/Assets/FullLogo.png">
 </div>
 
 ### EconergyCalc - Household Energy Consumption Calculator

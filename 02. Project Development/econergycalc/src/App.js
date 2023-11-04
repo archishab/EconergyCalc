@@ -1,13 +1,13 @@
 import "./App.css";
 import Navbar from "./components/Navbar.js";
 import AddApplianceForm from "./components/AddApplianceForm.js";
-import Recommendations from "./components/Recommendations.js";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
+import Recommendations from "./components/Recommendations";
 
 function App() {
   return (

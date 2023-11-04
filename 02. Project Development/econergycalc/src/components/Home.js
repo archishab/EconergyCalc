@@ -17,14 +17,11 @@ export default function Home() {
             />
           </div>
           <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-            <h1 className="display-4 fw-bold lh-1 text-body-emphasis">
-              EconergyCalc
+            <h1 className="fw-bold lh-1 text-body-emphasis">
+            Household Energy Consumption Calculator
             </h1>
             <p className="lead">
-              Quickly design and customize responsive mobile-first sites with
-              Bootstrap, the world’s most popular front-end open source toolkit,
-              featuring Sass variables and mixins, responsive grid system,
-              extensive prebuilt components, and powerful JavaScript plugins.
+              EconergyCalc is an interactive web application where users can add or log the electrical appliances they use regularly in their household and receive their total energy consumption. The application will also provide users with weekly/yearly energy consumption predictions and give actionable recommendations, such as providing more sustainable or eco-friendly alternatives for appliances that use more energy than they should.
             </p>
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
               <Link

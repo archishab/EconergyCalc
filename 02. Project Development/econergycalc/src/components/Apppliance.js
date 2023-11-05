@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ApplianceContext from "../context/appliances/ApplianceContext";
 import ApplianceItem from "./ApplianceItem";
 import AddApplianceForm from "./AddApplianceForm";
 
 export default function Apppliance() {
   const context = useContext(ApplianceContext);
-  const { appliances } = context;
+  const { appliances, getAppliance } = context;
+  useEffect(() => {
+    getAppliance()
+  }, [])
   return (
     <>
       <AddApplianceForm />

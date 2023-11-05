@@ -6,7 +6,7 @@ export default function AddApplianceForm(props) {
   const context = useContext(ApplianceContext);
   const { addAppliance } = context;
 
-  const [appliance, setAppliances] = useState({applianceType: "", applianceName: "", powerRating: "", quantity: "", active: "true"})
+  const [appliance, setAppliances] = useState({applianceType: "", applianceName: "", powerRating: "", quantity: "", active: ""})
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -85,6 +85,18 @@ export default function AddApplianceForm(props) {
             onChange={onChange}
             id="quantity"
             name="quantity"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="active" className="form-label">
+            Active
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            onChange={onChange}
+            id="active"
+            name="active"
           />
         </div>
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -1,4 +1,8 @@
 const connectToMongo = require("./db");
+var cors = require('cors')
+
+ 
+
 
 connectToMongo()
   .then(() => {
@@ -10,6 +14,7 @@ connectToMongo()
 
 const express = require("express");
 const app = express();
+app.use(cors())
 const port = 3030;
 
 app.use(express.json());

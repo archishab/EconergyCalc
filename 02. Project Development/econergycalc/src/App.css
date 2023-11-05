@@ -64,4 +64,6 @@
   width: 18rem;
 }
 
-
+i {
+  cursor: pointer;
+}

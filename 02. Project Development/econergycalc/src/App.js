@@ -9,6 +9,7 @@ import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import Recommendations from "./components/Recommendations";
 import ApplianceState from "./context/appliances/ApplianceState";
+import Alert from "./components/Alert.js";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <BrowserRouter>
           <div className="wrapper">
             <Navbar />
+            <Alert message="This is a text" />
             <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} />

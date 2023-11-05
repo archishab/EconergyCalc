@@ -20,9 +20,8 @@ const ApplianceItem = (props) => {
           <p className="card-text">
           {appliance.applianceType} - {appliance.powerRating}
           </p>
-          <Link to="/" className="btn btn-primary">
-            Go somewhere
-          </Link>
+          <i class="fa-solid fa-trash-can mx-2"></i>
+          <i class="fa-solid fa-pen-to-square mx-2"></i>
         </div>
       </div>
     </div>

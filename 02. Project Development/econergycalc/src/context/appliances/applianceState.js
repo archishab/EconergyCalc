@@ -56,8 +56,32 @@ const ApplianceState = (props) => {
 
   const [appliances, setAppliances] = useState(applianceInitial)
   
+  //Add an appliance
+  const addAppliance = (applianceType, applianceName, powerRating, quantity, active) => {
+    console.log("Adding an appliance")
+    const newAppliance = {
+      "_id": "6546840364a2c2a37158851d",
+      "user": "654169de86a069773db0db98",
+      "applianceType": applianceType,
+      "applianceName": applianceName,
+      "powerRating": powerRating,
+      "quantity": quantity,
+      "active": active,
+      "__v": 0
+    }
+    setAppliances(appliances.concat(newAppliance))
+  }
+  // Delete an appliance
+  const deleteAppliance = () => {
+    
+  }
+  // Edit an appliance
+  const editAppliance = () => {
+    
+  }
+
   return (
-    <ApplianceContext.Provider value={{appliances, setAppliances}}>
+    <ApplianceContext.Provider value={{appliances, addAppliance, deleteAppliance, editAppliance}}>
       {props.children}
     </ApplianceContext.Provider>
   );

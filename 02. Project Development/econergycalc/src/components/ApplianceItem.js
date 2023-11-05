@@ -1,8 +1,9 @@
-import React from "react";
-import PlaceHolderImage from "../assets/PlaceHolderImage.jpg";
-import { Link } from "react-router-dom";
+import React, { useContext }  from "react";
+import ApplianceContext from "../context/appliances/ApplianceContext";
 
 const ApplianceItem = (props) => {
+  const context = useContext(ApplianceContext);
+  const{ deleteAppliance } = context;
   const { appliance } = props;
   return (
     <div className="col-md-3">
@@ -20,7 +21,7 @@ const ApplianceItem = (props) => {
           <p className="card-text">
           {appliance.applianceType} - {appliance.powerRating}
           </p>
-          <i class="fa-solid fa-trash-can mx-2"></i>
+          <i class="fa-solid fa-trash-can mx-2" onClick={()=>{deleteAppliance(appliance._id)}}></i>
           <i class="fa-solid fa-pen-to-square mx-2"></i>
         </div>
       </div>

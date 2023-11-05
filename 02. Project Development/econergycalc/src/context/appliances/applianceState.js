@@ -13,7 +13,7 @@ const ApplianceState = (props) => {
       "__v": 0
     },
     {
-      "_id": "6546840364a2c2a37158851d",
+      "_id": "6546840364a2c2a37158851",
       "user": "654169de86a069773db0db98",
       "applianceType": "demo appliance 1",
       "applianceName": "demo appliance name 1",
@@ -23,7 +23,7 @@ const ApplianceState = (props) => {
       "__v": 0
     },
     {
-      "_id": "6546840364a2c2a37158851d",
+      "_id": "6546840364a2c2a3715885",
       "user": "654169de86a069773db0db98",
       "applianceType": "demo appliance 1",
       "applianceName": "demo appliance name 1",
@@ -33,7 +33,7 @@ const ApplianceState = (props) => {
       "__v": 0
     },
     {
-      "_id": "6546840364a2c2a37158851d",
+      "_id": "6546840364a2c2a371588",
       "user": "654169de86a069773db0db98",
       "applianceType": "demo appliance 1",
       "applianceName": "demo appliance name 1",
@@ -43,7 +43,7 @@ const ApplianceState = (props) => {
       "__v": 0
     },
     {
-      "_id": "6546840364a2c2a37158851d",
+      "_id": "6546840364a2c2a37158",
       "user": "654169de86a069773db0db98",
       "applianceType": "demo appliance 1",
       "applianceName": "demo appliance name 1",
@@ -71,12 +71,18 @@ const ApplianceState = (props) => {
     }
     setAppliances(appliances.concat(newAppliance))
   }
+
   // Delete an appliance
-  const deleteAppliance = () => {
+  const deleteAppliance = (id) => {
+    console.log("Deleting the appliance with id" + id)
+    const newAppliance = appliances.filter((appliance)=>{return appliance._id!==id})
+
+    setAppliances(newAppliance)
     
   }
+
   // Edit an appliance
-  const editAppliance = () => {
+  const editAppliance = (id, applianceType, applianceName, powerRating, quantity, active) => {
     
   }
 

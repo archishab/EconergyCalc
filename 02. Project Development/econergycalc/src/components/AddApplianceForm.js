@@ -93,7 +93,7 @@ export default function AddApplianceForm(props) {
           </button>
 
           <button className="btn btn-primary" onClick={handleClick}>
-            Save
+            Add
           </button>
         </div>
       </form>

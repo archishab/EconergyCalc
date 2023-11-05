@@ -5,7 +5,7 @@ import AddApplianceForm from "./AddApplianceForm";
 
 export default function Apppliance() {
   const context = useContext(ApplianceContext);
-  const { appliances, addAppliance } = context;
+  const { appliances } = context;
   return (
     <>
       <AddApplianceForm />

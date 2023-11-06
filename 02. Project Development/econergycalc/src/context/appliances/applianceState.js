@@ -16,17 +16,12 @@ const ApplianceState = (props) => {
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
       },
-      
-    })
+    });
     const json = await response.json();
 
-    console.log(json)
+    console.log(json);
     setAppliances(json);
-  
   };
-    
-  
-
 
   //Add an appliance
   const addAppliance = async (
@@ -49,8 +44,7 @@ const ApplianceState = (props) => {
         applianceName,
         powerRating,
         quantity,
-        
-    }),
+      }),
     });
     const json = response.json();
 
@@ -69,7 +63,23 @@ const ApplianceState = (props) => {
   };
 
   // Delete an appliance
-  const deleteAppliance = (id) => {
+  const deleteAppliance = async (id) => {
+    // API CALL
+    const response = await fetch(
+      `${host}api/appliances/deleteappliance/${id}`,
+      {
+        method: "DELETE",
+
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
+        },
+      }
+    );
+    const json = response.json();
+    console.log(json);
+
     console.log("Deleting the appliance with id" + id);
     const newAppliance = appliances.filter((appliance) => {
       return appliance._id !== id;
@@ -89,7 +99,7 @@ const ApplianceState = (props) => {
   ) => {
     // API CALL
     const response = await fetch(
-      `${host}api/appliances/updateappliance/654596a93c9cf4fbfb81f6a3`,
+      `${host}api/appliances/updateappliance/${id}`,
       {
         method: "POST",
 
@@ -98,11 +108,12 @@ const ApplianceState = (props) => {
           "auth-token":
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
         },
-        body: JSON.stringify(applianceType,
+        body: JSON.stringify(
+          applianceType,
           applianceName,
           powerRating,
-          quantity,
-          ),
+          quantity
+        ),
       }
     );
     const json = response.json();
@@ -121,7 +132,13 @@ const ApplianceState = (props) => {
 
   return (
     <ApplianceContext.Provider
-      value={{ appliances, getAppliance, addAppliance, deleteAppliance, editAppliance }}
+      value={{
+        appliances,
+        getAppliance,
+        addAppliance,
+        deleteAppliance,
+        editAppliance,
+      }}
     >
       {props.children}
     </ApplianceContext.Provider>

@@ -91,13 +91,12 @@ export default function AddApplianceForm(props) {
           <label htmlFor="active" className="form-label">
             Active
           </label>
-          <input
-            type="text"
-            className="form-control"
-            onChange={onChange}
-            id="active"
-            name="active"
-          />
+          <select className="form-select" id="active"
+            name="active" aria-label="Default select example" onChange={onChange}>
+            <option defaultValue>Select an option</option>
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </select>
         </div>
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
           <button type="submit" className="btn btn-primary">

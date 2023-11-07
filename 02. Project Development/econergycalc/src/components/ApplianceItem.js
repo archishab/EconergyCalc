@@ -4,7 +4,7 @@ import ApplianceContext from "../context/appliances/ApplianceContext";
 const ApplianceItem = (props) => {
   const context = useContext(ApplianceContext);
   const{ deleteAppliance } = context;
-  const { appliance } = props;
+  const { appliance, updateAppliance } = props;
   return (
     <div className="col-md-3">
       
@@ -22,7 +22,7 @@ const ApplianceItem = (props) => {
           {appliance.applianceType} - {appliance.powerRating}
           </p>
           <i class="fa-solid fa-trash-can mx-2" onClick={()=>{deleteAppliance(appliance._id)}}></i>
-          <i class="fa-solid fa-pen-to-square mx-2"></i>
+          <i class="fa-solid fa-pen-to-square mx-2 " onClick={()=>{updateAppliance(appliance)}}></i>
         </div>
       </div>
     </div>

@@ -1,28 +1,36 @@
-import "../App.css";
-import React, { useState, useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ApplianceContext from "../context/appliances/ApplianceContext";
+import ApplianceItem from "./ApplianceItem";
+import AddApplianceForm from "./AddApplianceForm";
 
-export default function AddApplianceForm(props) {
+export default function Appliance() {
   const context = useContext(ApplianceContext);
-  const { addAppliance } = context;
+  const { appliances, getAppliance, editAppliance } = context;
+  useEffect(() => {
+    getAppliance();
+  }, []);
+
+  const ref = useRef(null);
 
   const [appliance, setAppliances] = useState({
-    applianceType: "",
-    applianceName: "",
-    powerRating: "",
-    quantity: "",
-    active: "",
+    id: "",
+    eapplianceType: "",
+    eapplianceName: "",
+    epowerRating: "",
+    equantity: "",
+    eactive: "",
   });
+
+    
+  const updateAppliance = (currentAppliance) => {
+    ref.current.click();
+    setAppliances({id: currentAppliance._id, eapplianceType: currentAppliance.applianceType, eapplianceName: currentAppliance.applianceName, epowerRating: currentAppliance.powerRating, equantity: currentAppliance.quantity, eactive: currentAppliance.active});
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
-    addAppliance(
-      appliance.applianceType,
-      appliance.applianceName,
-      appliance.powerRating,
-      appliance.quantity,
-      appliance.active
-    );
+    console.log("Updating the appliance...", appliance)
+    editAppliance(appliance.id, appliance.eapplianceType, appliance.eapplianceName, appliance.epowerRating, appliance.equantity, appliance.eactive)
   };
 
   const onChange = (e) => {
@@ -33,15 +41,17 @@ export default function AddApplianceForm(props) {
     <>
       <button
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary d-none"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal1"
+        data-bs-target="#exampleModal"
+        ref={ref}
       >
-        Add New Appliance
+        Launch demo modal
       </button>
+
       <div
-        class="modal fade text-start"
-        id="exampleModal1"
+        class="modal fade"
+        id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -50,7 +60,7 @@ export default function AddApplianceForm(props) {
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">
-                {props.heading}
+                Edit Appliance
               </h1>
               <button
                 type="button"
@@ -65,18 +75,13 @@ export default function AddApplianceForm(props) {
                   <label htmlFor="applianceType" className="form-label">
                     Appliance Type
                   </label>
-                  {/* <select className="form-select" aria-label="Default select example" onChange={onChange}>
-            <option defaultValue>Select Appliance Type</option>
-            <option value="Refrigerator">Refrigerator</option>
-            <option value="Stove">Stove</option>
-            <option value="Dishwasher">Dishwasher</option>
-          </select> */}
                   <input
                     type="text"
                     className="form-control"
                     onChange={onChange}
-                    id="applianceType"
-                    name="applianceType"
+                    id="eapplianceType"
+                    name="eapplianceType"
+                    value={appliance.eapplianceType}
                   />
                 </div>
                 <div className="mb-3">
@@ -87,8 +92,9 @@ export default function AddApplianceForm(props) {
                     type="text"
                     className="form-control"
                     onChange={onChange}
-                    id="applianceName"
-                    name="applianceName"
+                    id="eapplianceName"
+                    name="eapplianceName"
+                    value={appliance.eapplianceName}
                   />
                 </div>
                 <div className="mb-3">
@@ -99,20 +105,9 @@ export default function AddApplianceForm(props) {
                     type="number"
                     className="form-control"
                     onChange={onChange}
-                    id="powerRating"
-                    name="powerRating"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="UsageDuration" className="form-label">
-                    Usage Duration
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={onChange}
-                    id="UsageDuration"
-                    name="UsageDuration"
+                    id="epowerRating"
+                    name="epowerRating"
+                    value={appliance.epowerRating}
                   />
                 </div>
                 <div className="mb-3">
@@ -123,8 +118,9 @@ export default function AddApplianceForm(props) {
                     type="number"
                     className="form-control"
                     onChange={onChange}
-                    id="quantity"
-                    name="quantity"
+                    id="equantity"
+                    name="equantity"
+                    value={appliance.equantity}
                   />
                 </div>
                 <div className="mb-3">
@@ -133,12 +129,12 @@ export default function AddApplianceForm(props) {
                   </label>
                   <select
                     className="form-select"
-                    id="active"
-                    name="active"
+                    id="eactive"
+                    name="eactive"
                     aria-label="Default select example"
                     onChange={onChange}
+                    value={appliance.eactive}
                   >
-                    <option>Select a value</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                   </select>
@@ -151,13 +147,35 @@ export default function AddApplianceForm(props) {
                   </button>
 
                   <button className="btn btn-primary" onClick={handleClick} data-bs-dismiss="modal">
-                    Add
+                    Update
                   </button>
                 </div>
               </div>
             </form>
           </div>
         </div>
+      </div>
+ 
+      <div className="row my-3">
+        <div class="col-5">
+          <h3 className="">My Appliances</h3>
+        </div>
+        <div class="col"></div>
+
+        <div class="col text-end">
+          <AddApplianceForm heading="Add new Appliance" />
+        </div>
+      </div>
+      <div div className="row my-3">
+        {appliances.map((appliance) => {
+          return (
+            <ApplianceItem
+              key={appliance.id}
+              updateAppliance={updateAppliance}
+              appliance={appliance}
+            />
+          );
+        })}
       </div>
     </>
   );

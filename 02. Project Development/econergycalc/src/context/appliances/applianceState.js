@@ -44,6 +44,7 @@ const ApplianceState = (props) => {
         applianceName,
         powerRating,
         quantity,
+        active,
       }),
     });
     const json = response.json();
@@ -101,33 +102,38 @@ const ApplianceState = (props) => {
     const response = await fetch(
       `${host}api/appliances/updateappliance/${id}`,
       {
-        method: "POST",
+        method: "PUT",
 
         headers: {
           "Content-Type": "application/json",
           "auth-token":
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
         },
-        body: JSON.stringify(
+        body: JSON.stringify({
           applianceType,
           applianceName,
           powerRating,
-          quantity
-        ),
+          quantity,
+          active,
+        }),
       }
     );
-    const json = response.json();
+    const json = await response.json();
 
-    for (let index = 0; index < appliances.length; index++) {
-      const element = appliances[index];
-      if ((element._id = id)) {
-        element.applianceType = applianceType;
-        element.applianceName = applianceName;
-        element.powerRating = powerRating;
-        element.quantity = quantity;
-        element.active = active;
+    console.log(json);
+    let newAppliances = JSON.parse(JSON.stringify(appliances))
+    for (let index = 0; index < newAppliances.length; index++) {
+      const element = newAppliances[index];
+      if (element._id === id) {
+        newAppliances[index].applianceType = applianceType;
+        newAppliances[index].applianceName = applianceName;
+        newAppliances[index].powerRating = powerRating;
+        newAppliances[index].quantity = quantity;
+        newAppliances[index].active = active;
+        break;
       }
     }
+    setAppliances(newAppliances);
   };
 
   return (

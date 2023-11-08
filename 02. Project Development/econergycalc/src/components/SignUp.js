@@ -27,8 +27,9 @@ export default function SignUp(props) {
       // save auth-token and redirect
       localStorage.setItem('token', json.authtoken)
       navigate("/login");
+      props.showAlert("Account Created Successfully", "success");
     } else {
-      alert("Invalid Credentials")
+      props.showAlert("Invalid Fields", "danger");
     }
   };
 

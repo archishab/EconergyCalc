@@ -3,7 +3,7 @@ import ApplianceContext from "../context/appliances/ApplianceContext";
 import ApplianceItem from "./ApplianceItem";
 import AddApplianceForm from "./AddApplianceForm";
 
-export default function Appliance() {
+export default function Appliance(props) {
   const context = useContext(ApplianceContext);
   const { appliances, getAppliance, editAppliance } = context;
   useEffect(() => {
@@ -31,6 +31,7 @@ export default function Appliance() {
     e.preventDefault();
     console.log("Updating the appliance...", appliance)
     editAppliance(appliance.id, appliance.eapplianceType, appliance.eapplianceName, appliance.epowerRating, appliance.equantity, appliance.eactive)
+    props.showAlert("Appliance updated successfully", "success")
   };
 
   const onChange = (e) => {
@@ -163,7 +164,7 @@ export default function Appliance() {
         <div class="col"></div>
 
         <div class="col text-end">
-          <AddApplianceForm heading="Add new Appliance" />
+          <AddApplianceForm heading="Add new Appliance" showAlert={props.showAlert}/>
         </div>
       </div>
       <div div className="row my-3">
@@ -173,6 +174,7 @@ export default function Appliance() {
               key={appliance.id}
               updateAppliance={updateAppliance}
               appliance={appliance}
+              showAlert={props.showAlert}
             />
           );
         })}

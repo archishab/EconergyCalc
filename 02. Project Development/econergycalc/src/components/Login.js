@@ -24,8 +24,9 @@ export default function Login(props) {
       // save auth-token and redirect
       localStorage.setItem('token', json.authtoken)
       navigate("/dashboard");
+      props.showAlert("Logged In Successfully", "success");
     } else {
-      alert("Invalid Credentials")
+      props.showAlert("Invalid Credentials", "danger");
     }
   };
 

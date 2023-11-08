@@ -21,7 +21,7 @@ const ApplianceItem = (props) => {
           <p className="card-text">
           {appliance.applianceType} - {appliance.powerRating}
           </p>
-          <i class="fa-solid fa-trash-can mx-2" onClick={()=>{deleteAppliance(appliance._id)}}></i>
+          <i class="fa-solid fa-trash-can mx-2" onClick={()=>{deleteAppliance(appliance._id); props.showAlert("Appliance Deleted Successfully", "success")}}></i>
           <i class="fa-solid fa-pen-to-square mx-2 " onClick={()=>{updateAppliance(appliance)}}></i>
         </div>
       </div>

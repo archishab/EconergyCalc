@@ -23,6 +23,7 @@ export default function AddApplianceForm(props) {
       appliance.quantity,
       appliance.active
     );
+    props.showAlert("Appliance Added Successfully", "success")
   };
 
   const onChange = (e) => {

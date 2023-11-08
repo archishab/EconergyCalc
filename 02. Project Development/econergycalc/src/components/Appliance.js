@@ -2,12 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import ApplianceContext from "../context/appliances/ApplianceContext";
 import ApplianceItem from "./ApplianceItem";
 import AddApplianceForm from "./AddApplianceForm";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Appliance(props) {
   const context = useContext(ApplianceContext);
   const { appliances, getAppliance, editAppliance } = context;
+  let navigate = useNavigate();
   useEffect(() => {
-    getAppliance();
+    if(localStorage.getItem('token') !== null){
+      getAppliance();
+    } else {
+      navigate("/")
+    }
   }, []);
 
   const ref = useRef(null);

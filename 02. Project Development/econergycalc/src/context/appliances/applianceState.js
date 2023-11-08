@@ -13,8 +13,7 @@ const ApplianceState = (props) => {
       method: "GET",
 
       headers: {
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
+        "auth-token": localStorage.getItem("token"),
       },
     });
     const json = await response.json();
@@ -36,8 +35,7 @@ const ApplianceState = (props) => {
 
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({
         applianceType,
@@ -73,8 +71,7 @@ const ApplianceState = (props) => {
 
         headers: {
           "Content-Type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
+          "auth-token": localStorage.getItem("token"),
         },
       }
     );
@@ -106,8 +103,7 @@ const ApplianceState = (props) => {
 
         headers: {
           "Content-Type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MTY5ZGU4NmEwNjk3NzNkYjBkYjk4In0sImlhdCI6MTY5OTA1NjIxNX0.13bbZP5pqQ3PPn0mURF6W38KTL1hjFuNSGROxl4rBoo",
+          "auth-token": localStorage.getItem("token"),
         },
         body: JSON.stringify({
           applianceType,
@@ -121,7 +117,7 @@ const ApplianceState = (props) => {
     const json = await response.json();
 
     console.log(json);
-    let newAppliances = JSON.parse(JSON.stringify(appliances))
+    let newAppliances = JSON.parse(JSON.stringify(appliances));
     for (let index = 0; index < newAppliances.length; index++) {
       const element = newAppliances[index];
       if (element._id === id) {

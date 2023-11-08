@@ -12,6 +12,7 @@ import ApplianceState from "./context/appliances/ApplianceState";
 import Alert from "./components/Alert.js";
 
 function App() {
+  //localStorage.setItem('token', null)
   const [alert, setAlert] = useState(null);
   const showAlert = (message, type) => {
     setAlert({

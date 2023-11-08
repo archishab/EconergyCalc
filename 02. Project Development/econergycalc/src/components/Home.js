@@ -4,6 +4,7 @@ import BigLogo from "../assets/BigLogo.png";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  console.log("Token is:" + localStorage.getItem('token'))
   return (
     <>
       <div className="container my-5">

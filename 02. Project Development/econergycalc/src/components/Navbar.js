@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoIcon from "../assets/LogoIcon.png";
 import FullLogo from "../assets/FullLogo.png";
 
 export default function Navbar() {
+  let navigate = useNavigate();
+  const handleSignOut = () => {
+    localStorage.clear();
+    navigate("/")
+  }
   let location = useLocation();
 
   useEffect(() => {
@@ -15,7 +20,7 @@ export default function Navbar() {
     <>
       <nav className="navbar bg-body-tertiary d-flex">
         <div className="container-fluid">
-          <button
+          {localStorage.getItem('token')? <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="offcanvas"
@@ -24,7 +29,7 @@ export default function Navbar() {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
-          </button>
+          </button>:<div></div>}
           <div
             className="offcanvas offcanvas-start"
             tabIndex="-1"
@@ -116,9 +121,10 @@ export default function Navbar() {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="#">
+                    <button className="dropdown-item" onClick={handleSignOut} data-bs-dismiss="offcanvas"
+                  aria-label="Close">
                       Sign out
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </div>

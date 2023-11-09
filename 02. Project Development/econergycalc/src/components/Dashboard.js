@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PlaceHolderImage from "../assets/PlaceHolderImage.jpg";
 import Apppliance from "./Appliance";
 import AddApplianceForm from "./AddApplianceForm";
-import App from "../App"
+import AddUsage from "./AddUsage";
 
 
 export default function Dashboard(props) {
@@ -19,6 +19,7 @@ export default function Dashboard(props) {
     <div className="container">
       <Apppliance showAlert={showAlert}/>
       <h3>My Consumption</h3>
+      <AddUsage showAlert={showAlert}/>
       <hr />
     </div>
   );

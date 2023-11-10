@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 const Stopwatch = ({ onTimeSubmit }) => {
   const [isActive, setIsActive] = useState(false);
@@ -31,9 +31,21 @@ const Stopwatch = ({ onTimeSubmit }) => {
 
   return (
     <div>
-      <div>Time: {secondsElapsed} seconds</div>
-      <button onClick={handleStartStop}>{isActive ? 'Stop' : 'Start'}</button>
-      <button onClick={handleReset}>Reset</button>
+      <div class="input-group form-floating my-2">
+        <input
+          type="text"
+          class="form-control"
+          value={`${secondsElapsed} seconds`}
+          aria-label="Recipient's username with two button addons"
+          disabled
+        />
+        <label for="floatingInput">Stopwatch</label>
+        <button class="btn btn-outline-secondary" type="button"onClick={handleStartStop}>{isActive ? "Pause" : "Start"}
+        </button>
+        <button class="btn btn-outline-secondary" type="button" onClick={handleReset}>
+        Reset
+        </button>
+      </div>
     </div>
   );
 };

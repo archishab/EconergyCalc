@@ -97,8 +97,9 @@ const ApplianceTracker = ({ userId }) => {
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-start">
               <select
+                className="form-select my-2" aria-label="Default select example"
                 value={selectedApplianceId}
                 onChange={handleApplianceChange}
               >
@@ -114,12 +115,17 @@ const ApplianceTracker = ({ userId }) => {
                 ))}
               </select>
               <Stopwatch onTimeSubmit={setTime} />
+              <div class="form-floating mb-3">
               <input
+                class="form-control"
                 type="number"
                 value={time}
                 onChange={handleTimeChange}
                 placeholder="Enter time in seconds"
               />
+                <label for="floatingInput">Enter time in seconds</label>
+            </div>
+              
               
             </div>
             <div class="modal-footer">

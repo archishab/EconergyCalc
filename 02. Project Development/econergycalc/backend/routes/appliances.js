@@ -132,7 +132,7 @@ router.delete("/deleteappliance/:id", fetchuser, async (req, res) => {
   }
 });
 
-// ROUTE 5: Add usage for appliance : DELETE "/api/appliances/usage". Login required
+// ROUTE 5: Add usage for appliance : POST "/api/appliances/usage".
 router.post('/usage', async (req, res) => {
   try {
     const { user, appliance, duration, energyConsumed } = req.body;
@@ -150,5 +150,45 @@ router.post('/usage', async (req, res) => {
     res.status(500).send('Error recording usage');
   }
 }); 
+
+// ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption-daily".
+router.get('/energy-consumption-daily', async (req, res) => {
+  try {
+    const dailyConsumption = await ApplianceUsage.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },
+          totalEnergyConsumed: { $sum: "$energyConsumed" }
+        }
+      },
+      { $sort: { _id: 1 } } // Sort by date ascending
+    ]);
+
+    res.json(dailyConsumption);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// ROUTE 7: Fetch monthly energy consumption : GET "/api/appliances/energy-consumption-daily".
+router.get('/energy-consumption-monthly', async (req, res) => {
+  try {
+    const monthlyConsumption = await ApplianceUsage.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m", date: "$timestamp" } },
+          totalEnergyConsumed: { $sum: "$energyConsumed" }
+        }
+      },
+      { $sort: { _id: 1 } } // Sort by month ascending
+    ]);
+
+    res.json(monthlyConsumption);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;

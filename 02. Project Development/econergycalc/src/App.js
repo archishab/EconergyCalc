@@ -7,7 +7,6 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
-import AddUsage from "./components/AddUsage";
 import Recommendations from "./components/Recommendations";
 import ApplianceState from "./context/appliances/ApplianceState";
 import Alert from "./components/Alert.js";
@@ -52,7 +51,6 @@ function App() {
                 element={<AddApplianceForm heading="Add New Appliance" />}
               />
               <Route exact path="/dashboard" element={<Dashboard showAlert={showAlert}/>} />
-              <Route exact path="/usage" element={<AddUsage showAlert={showAlert}/>} />
             </Routes>
             </div>
           </div>

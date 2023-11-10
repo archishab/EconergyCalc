@@ -8,9 +8,9 @@ const Stopwatch = ({ onTimeSubmit }) => {
     let interval;
     if (isActive) {
       interval = setInterval(() => {
-        setSecondsElapsed(secondsElapsed => secondsElapsed + 1);
+        setSecondsElapsed((seconds) => seconds + 1);
       }, 1000);
-    } else if (!isActive && secondsElapsed !== 0) {
+    } else if (!isActive) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
@@ -18,20 +18,24 @@ const Stopwatch = ({ onTimeSubmit }) => {
 
   const handleStartStop = () => {
     setIsActive(!isActive);
+    // When stopping the stopwatch, update the input field with the elapsed time
+    if (isActive) {
+      onTimeSubmit(secondsElapsed);
+    }
   };
 
-  const handleSubmit = () => {
-    onTimeSubmit(secondsElapsed);
-    setSecondsElapsed(0); // Reset timer
-    setIsActive(false); // Stop the stopwatch
+  const handleReset = () => {
+    setSecondsElapsed(0);
+    onTimeSubmit(0); // Reset the time in the parent component as well
   };
 
   return (
     <div>
-      <div>Time: {secondsElapsed}s</div>
+      <div>Time: {secondsElapsed} seconds</div>
       <button onClick={handleStartStop}>{isActive ? 'Stop' : 'Start'}</button>
-      <button onClick={handleSubmit} disabled={isActive || secondsElapsed === 0}>Submit</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 };
+
 export default Stopwatch;

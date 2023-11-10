@@ -7,13 +7,6 @@ const ApplianceItem = (props) => {
   const { appliance, updateAppliance } = props;
   return (
     <div className="col-md-3">
-      
-      
-      {/* {appliance.powerRating}
-      {appliance.usageDuration}
-      {appliance.quantity}
-      {appliance.active} */}
-
       <div className="card my-2">
         {/* <img src={PlaceHolderImage} className="card-img-top" alt="..." /> */}
         <div className="card-body">

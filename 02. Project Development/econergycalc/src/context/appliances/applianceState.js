@@ -132,6 +132,45 @@ const ApplianceState = (props) => {
     setAppliances(newAppliances);
   };
 
+  //Add an appliance
+  const addUsage = async (
+    applianceType,
+    applianceName,
+    powerRating,
+    quantity,
+    active
+  ) => {
+    const response = await fetch(`${host}api/appliances/usage/`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        applianceType,
+        applianceName,
+        powerRating,
+        quantity,
+        active,
+      }),
+    });
+    const json = response.json();
+
+    console.log("Adding an appliance");
+    const newAppliance = {
+      _id: "6546840364a2c2a37158851d",
+      user: "654169de86a069773db0db98",
+      applianceType: applianceType,
+      applianceName: applianceName,
+      powerRating: powerRating,
+      quantity: quantity,
+      active: active,
+      __v: 0,
+    };
+    setAppliances(appliances.concat(newAppliance));
+  };
+
   return (
     <ApplianceContext.Provider
       value={{

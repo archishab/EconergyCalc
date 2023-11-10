@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, query, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
 const Appliance = require("../models/Appliance");
+const ApplianceUsage = require("../models/Usage");
 
 // ROUTE 1: Fetch user's appliances : POST "/api/appliances/fetchallappliance". Login required
 router.get("/fetchallappliance", fetchuser, async (req, res) => {
@@ -131,43 +132,23 @@ router.delete("/deleteappliance/:id", fetchuser, async (req, res) => {
   }
 });
 
-// ROUTE 5: Log appliance usage : POST "/api/appliances/logusage/:id". Login required
-router.post("/logusage/:id", fetchuser, [
-  body("duration", "Duration must be a positive number").isNumeric().isLength({ min: 1 }),
-  // You can also validate the date if you want the user to be able to backdate entries
-], async (req, res) => {
+// ROUTE 5: Add usage for appliance : DELETE "/api/appliances/usage". Login required
+router.post('/usage', async (req, res) => {
   try {
-    const { duration } = req.body;
-    const id = req.params.id;
+    const { user, appliance, duration, energyConsumed } = req.body;
 
-    // Validate the request body
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+    const newUsage = new ApplianceUsage({
+      user,
+      appliance,
+      duration,
+      energyConsumed,
+    });
 
-    // Find the appliance and add a new usage log
-    const appliance = await Appliance.findById(id);
-    if (!appliance) {
-      return res.status(404).send("Appliance not found");
-    }
-
-    // Check if the user is the owner of the appliance
-    if (appliance.user.toString() !== req.user.id) {
-      return res.status(401).send("Access Denied");
-    }
-
-    // Add the new usage log
-    appliance.usageLogs.push({ duration });
-    await appliance.save();
-
-    res.json(appliance);
+    await newUsage.save();
+    res.status(201).send('Usage recorded successfully');
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send('Error recording usage');
   }
-});
-
-
+}); 
 
 module.exports = router;

@@ -34,7 +34,7 @@ export default function AddApplianceForm(props) {
     <>
       <button
         type="button"
-        class="btn btn-primary"
+        class="btn btn-primary me-1"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal1"
       >
@@ -147,10 +147,6 @@ export default function AddApplianceForm(props) {
               </div>
               <div class="modal-footer">
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
-                    Cancel
-                  </button>
-
                   <button className="btn btn-primary" onClick={handleClick} data-bs-dismiss="modal">
                     Add
                   </button>

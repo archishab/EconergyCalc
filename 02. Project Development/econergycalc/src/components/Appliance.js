@@ -3,6 +3,7 @@ import ApplianceContext from "../context/appliances/ApplianceContext";
 import ApplianceItem from "./ApplianceItem";
 import AddApplianceForm from "./AddApplianceForm";
 import { Link, useNavigate } from "react-router-dom";
+import ApplianceTracker from "./ApplianceTracker";
 
 export default function Appliance(props) {
   const context = useContext(ApplianceContext);
@@ -149,9 +150,7 @@ export default function Appliance(props) {
               </div>
               <div class="modal-footer">
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
-                    Cancel
-                  </button>
+                  
 
                   <button className="btn btn-primary" onClick={handleClick} data-bs-dismiss="modal">
                     Update
@@ -167,11 +166,7 @@ export default function Appliance(props) {
         <div class="col-5">
           <h3 className="">My Appliances</h3>
         </div>
-        <div class="col"></div>
-
-        <div class="col text-end">
-          <AddApplianceForm heading="Add new Appliance" showAlert={props.showAlert}/>
-        </div>
+        <div class="col text-end"><AddApplianceForm heading="Add new Appliance" showAlert={props.showAlert}/><ApplianceTracker /></div>
       </div>
       <div div className="row my-3">
         {appliances.map((appliance) => {

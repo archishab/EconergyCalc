@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-const MonthlyEnergyConsumptionChart = () => {
+const MonthlyGraph = () => {
   const [monthlyData, setMonthlyData] = useState(Array(12).fill(0));
   const [currentYear, setCurrentYear] = useState(moment().year());
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ const MonthlyEnergyConsumptionChart = () => {
     setMonthlyData(Array(12).fill(0)); // Reset the monthly data
 
     try {
-      const res = await axios.get('http://localhost:3030/api/appliances/energy-consumption-daily', {
+      const res = await axios.get('http://localhost:3030/api/appliances/energy-consumption', {
         headers: {
           'auth-token': localStorage.getItem('token'),
         },
@@ -110,4 +110,4 @@ const MonthlyEnergyConsumptionChart = () => {
   );
 };
 
-export default MonthlyEnergyConsumptionChart;
+export default MonthlyGraph;

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,8 +9,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import moment from "moment"; // Make sure to install moment for date manipulation
+} from 'chart.js';
+import moment from 'moment';
 
 ChartJS.register(
   CategoryScale,
@@ -21,65 +21,66 @@ ChartJS.register(
   Legend
 );
 
-const WeeklyGraph = () => {
-  const [weekData, setWeekData] = useState({});
-  const [currentWeek, setCurrentWeek] = useState(moment().startOf("week"));
+const WeeklyEnergyConsumptionChart = () => {
+  const [yearlyData, setYearlyData] = useState([]); // Store the data for the whole year
+  const [selectedWeek, setSelectedWeek] = useState(moment().startOf('isoWeek'));
+  const [loading, setLoading] = useState(false);
 
-  const loadEnergyData = async (startOfWeek, endOfWeek) => {
+  const fetchYearlyData = async () => {
+    setLoading(true);
+    const startOfYear = moment().startOf('year').toISOString();
+    const endOfYear = moment().endOf('year').toISOString();
+
     try {
-      const res = await axios.get(
-        "http://localhost:3030/api/appliances/energy-consumption-daily",
-        {
-          headers: {
-            "auth-token": localStorage.getItem("token"), // Replace with actual token retrieval method
-          },
-          params: {
-            startDate: startOfWeek.toISOString(),
-            endDate: endOfWeek.toISOString(),
-          },
-        }
-      );
-      const fetchedData = res.data;
-
-      // Process and aggregate data by day of the week
-      const dataByDay = fetchedData.reduce((acc, curr) => {
-        const day = moment(curr.timestamp).format("YYYY-MM-DD"); // Format the date
-        acc[day] = (acc[day] || 0) + curr.energyConsumed;
-        return acc;
-      }, {});
-
-      setWeekData(dataByDay);
+      const res = await axios.get('http://localhost:3030/api/appliances/energy-consumption', {
+        headers: {
+          'auth-token': localStorage.getItem('token'),
+        },
+        params: { startDate: startOfYear, endDate: endOfYear },
+      });
+      setYearlyData(res.data); // Store the data in state
     } catch (err) {
-      console.error("Error fetching energy data", err);
+      console.error('Error fetching energy data', err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const goToNextWeek = () => {
-    setCurrentWeek(currentWeek.clone().add(1, "weeks"));
-  };
-
-  const goToPreviousWeek = () => {
-    setCurrentWeek(currentWeek.clone().subtract(1, "weeks"));
-  };
-
   useEffect(() => {
-    const startOfWeek = currentWeek.clone().startOf("week");
-    const endOfWeek = currentWeek.clone().endOf("week");
-    loadEnergyData(startOfWeek, endOfWeek);
-  }, [currentWeek]);
+    fetchYearlyData();
+  }, []);
 
-  const labels = [];
-  for (let i = 0; i < 7; i++) {
-    labels.push(currentWeek.clone().add(i, "days").format("YYYY-MM-DD")); // Format the date
-  }
+  // Filter the yearly data for the selected week and sum the daily consumption
+  const getWeeklyData = () => {
+    const startOfWeek = selectedWeek.clone().startOf('isoWeek');
+    const endOfWeek = selectedWeek.clone().endOf('isoWeek');
+
+    return yearlyData.filter((data) => {
+      const dataDate = moment(data.timestamp);
+      return dataDate.isSameOrAfter(startOfWeek) && dataDate.isSameOrBefore(endOfWeek);
+    }).reduce((acc, curr) => {
+      const dayOfWeek = moment(curr.timestamp).day();
+      acc[dayOfWeek] = (acc[dayOfWeek] || 0) + curr.energyConsumed;
+      return acc;
+    }, Array(7).fill(0));
+  };
+
+  const goToPreviousWeek = () => setSelectedWeek(selectedWeek.clone().subtract(1, 'weeks'));
+  const goToNextWeek = () => setSelectedWeek(selectedWeek.clone().add(1, 'weeks'));
+
+  const weeklyData = getWeeklyData();
+  const weeklyTotal = weeklyData.reduce((sum, daily) => sum + daily, 0);
+  const labels = Array.from({ length: 7 }, (_, i) =>
+    selectedWeek.clone().startOf('isoWeek').add(i, 'days').format('YYYY-MM-DD')
+  );
 
   const chartData = {
-    labels, // Use the actual dates as labels
+    labels: labels,
     datasets: [
       {
-        label: "Energy Consumption (kWh)",
-        data: labels.map((label) => weekData[label] || 0), // Fill in data for each date or default to 0
-        backgroundColor: "rgba(0, 123, 255, 0.5)",
+        label: 'Daily Energy Consumption (kWh)',
+        data: weeklyData,
+        backgroundColor: 'rgba(0, 123, 255, 0.5)',
       },
     ],
   };
@@ -90,9 +91,18 @@ const WeeklyGraph = () => {
       y: {
         title: {
           display: true,
-          text: "Energy (kWh)",
+          text: 'Energy (kWh)',
         },
         beginAtZero: true,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      title: {
+        display: true,
+        text: `Weekly Energy Consumption (Starting ${selectedWeek.format('YYYY-MM-DD')})`,
       },
     },
   };
@@ -100,11 +110,14 @@ const WeeklyGraph = () => {
   return (
     <div>
       <h2>Weekly Energy Consumption</h2>
-      <button onClick={goToPreviousWeek}>Previous Week</button>
-      <button onClick={goToNextWeek}>Next Week</button>
-      <Bar data={chartData} options={chartOptions} />
+      <div className="weekly-total">
+        <strong>Total Consumption for the Week:</strong> {weeklyTotal.toFixed(2)} kWh
+      </div>
+      <button onClick={goToPreviousWeek} disabled={loading}>Previous Week</button>
+      <button onClick={goToNextWeek} disabled={loading}>Next Week</button>
+      {loading ? <p>Loading...</p> : <Bar data={chartData} options={chartOptions} />}
     </div>
   );
 };
 
-export default WeeklyGraph;
+export default WeeklyEnergyConsumptionChart;

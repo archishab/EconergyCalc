@@ -132,7 +132,7 @@ router.delete("/deleteappliance/:id", fetchuser, async (req, res) => {
   }
 });
 
-// ROUTE 5: Add usage for appliance : POST "/api/appliances/usage".
+// ROUTE 5: Add usage for appliance : POST "/api/appliances/usage". Login required
 router.post('/usage', async (req, res) => {
   try {
     const { user, appliance, duration, energyConsumed } = req.body;
@@ -151,8 +151,8 @@ router.post('/usage', async (req, res) => {
   }
 }); 
 
-// ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption-daily".
-router.get('/energy-consumption-daily', fetchuser, async (req, res) => {
+// ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption-daily". Login required
+router.get('/energy-consumption', fetchuser, async (req, res) => {
   try {
     const appliance = await ApplianceUsage.find({ user: req.user.id });
     

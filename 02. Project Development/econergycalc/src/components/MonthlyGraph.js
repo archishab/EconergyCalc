@@ -21,48 +21,45 @@ ChartJS.register(
   Legend
 );
 
-const MonthlyGraph = () => {
-  const [monthlyData, setMonthlyData] = useState(Array(12).fill(0));
+const MonthlyEnergyConsumptionChart = () => {
+  const [data, setData] = useState([]);
+  const [monthlyConsumption, setMonthlyConsumption] = useState(Array(12).fill(0));
   const [currentYear, setCurrentYear] = useState(moment().year());
   const [loading, setLoading] = useState(false);
 
-  const loadEnergyData = async (year) => {
+  const fetchData = async () => {
     setLoading(true);
-    setMonthlyData(Array(12).fill(0)); // Reset the monthly data
-
     try {
       const res = await axios.get('http://localhost:3030/api/appliances/energy-consumption', {
         headers: {
-          'auth-token': localStorage.getItem('token'),
-        },
-        params: {
-          startDate: moment().year(year).startOf('year').toISOString(),
-          endDate: moment().year(year).endOf('year').toISOString(),
+          'auth-token': localStorage.getItem('token'), // Replace with actual token retrieval method
         },
       });
-
-      const fetchedData = res.data;
-      const monthlyTotals = Array.from({ length: 12 }, () => 0);
-
-      // Ensure data is for the correct year
-      fetchedData.forEach((entry) => {
-        if (moment(entry.timestamp).year() === year) {
-          const month = moment(entry.timestamp).month(); // month is 0 indexed
-          monthlyTotals[month] += entry.energyConsumed;
-        }
-      });
-
-      setMonthlyData(monthlyTotals);
-    } catch (err) {
-      console.error('Error fetching energy data', err);
-    } finally {
-      setLoading(false);
+      setData(res.data);
+    } catch (error) {
+      console.error('Error fetching data', error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
-    loadEnergyData(currentYear);
-  }, [currentYear]);
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const yearlyData = data.filter((entry) =>
+        moment(entry.timestamp).year() === currentYear
+      );
+      
+      const monthlyData = Array(12).fill(0);
+      yearlyData.forEach((entry) => {
+        const month = moment(entry.timestamp).month(); // 0 = January, 11 = December
+        monthlyData[month] += entry.energyConsumed;
+      });
+      setMonthlyConsumption(monthlyData);
+    }
+  }, [currentYear, data]);
 
   const goToPreviousYear = () => setCurrentYear(currentYear - 1);
   const goToNextYear = () => setCurrentYear(currentYear + 1);
@@ -71,8 +68,8 @@ const MonthlyGraph = () => {
     labels: moment.months(),
     datasets: [
       {
-        label: `Total Energy Consumption for ${currentYear} (kWh)`,
-        data: monthlyData,
+        label: `${currentYear} Monthly Energy Consumption (kWh)`,
+        data: monthlyConsumption,
         backgroundColor: 'rgba(0, 123, 255, 0.5)',
       },
     ],
@@ -95,7 +92,7 @@ const MonthlyGraph = () => {
       },
       title: {
         display: true,
-        text: `Monthly Energy Consumption for ${currentYear}`,
+        text: `Energy Consumption for ${currentYear}`,
       },
     },
   };
@@ -103,11 +100,19 @@ const MonthlyGraph = () => {
   return (
     <div>
       <h2>Monthly Energy Consumption</h2>
-      <button onClick={goToPreviousYear} disabled={loading}>Previous Year</button>
-      <button onClick={goToNextYear} disabled={loading}>Next Year</button>
-      {loading ? <p>Loading...</p> : <Bar data={chartData} options={chartOptions} />}
+      <div className="yearly-total">
+        <strong>Total Consumption for {currentYear}:</strong> 
+        {monthlyConsumption.reduce((acc, val) => acc + val, 0).toFixed(2)} kWh
+      </div>
+      <button onClick={goToPreviousYear} >
+        Previous Year
+      </button>
+      <button onClick={goToNextYear} disabled={loading || currentYear >= moment().year()}>
+        Next Year
+      </button>
+      {!loading && data.length > 0 ? <Bar data={chartData} options={chartOptions} /> : <p>No data available</p>}
     </div>
   );
 };
 
-export default MonthlyGraph;
+export default MonthlyEnergyConsumptionChart;

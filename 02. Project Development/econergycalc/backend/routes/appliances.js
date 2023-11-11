@@ -151,7 +151,7 @@ router.post('/usage', async (req, res) => {
   }
 }); 
 
-// ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption-daily". Login required
+// ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption". Login required
 router.get('/energy-consumption', fetchuser, async (req, res) => {
   try {
     const appliance = await ApplianceUsage.find({ user: req.user.id });

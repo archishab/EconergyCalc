@@ -152,43 +152,16 @@ router.post('/usage', async (req, res) => {
 }); 
 
 // ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption-daily".
-router.get('/energy-consumption-daily', async (req, res) => {
+router.get('/energy-consumption-daily', fetchuser, async (req, res) => {
   try {
-    const dailyConsumption = await ApplianceUsage.aggregate([
-      {
-        $group: {
-          _id: { $dateToString: { format: "%Y-%m-%d", date: "$timestamp" } },
-          totalEnergyConsumed: { $sum: "$energyConsumed" }
-        }
-      },
-      { $sort: { _id: 1 } } // Sort by date ascending
-    ]);
-
-    res.json(dailyConsumption);
+    const appliance = await ApplianceUsage.find({ user: req.user.id });
+    
+    res.json(appliance);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
 });
 
-// ROUTE 7: Fetch monthly energy consumption : GET "/api/appliances/energy-consumption-daily".
-router.get('/energy-consumption-monthly', async (req, res) => {
-  try {
-    const monthlyConsumption = await ApplianceUsage.aggregate([
-      {
-        $group: {
-          _id: { $dateToString: { format: "%Y-%m", date: "$timestamp" } },
-          totalEnergyConsumed: { $sum: "$energyConsumed" }
-        }
-      },
-      { $sort: { _id: 1 } } // Sort by month ascending
-    ]);
-
-    res.json(monthlyConsumption);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 module.exports = router;

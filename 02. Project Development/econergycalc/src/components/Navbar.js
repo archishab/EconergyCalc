@@ -106,7 +106,7 @@ export default function Navbar() {
                     height="32"
                     className="rounded-circle me-2"
                   />
-                  <strong>mdo</strong>
+                  <strong>{localStorage.getItem('username')}</strong>
                 </Link>
                 <ul
                   className="user-menu dropdown-menu text-small shadow"

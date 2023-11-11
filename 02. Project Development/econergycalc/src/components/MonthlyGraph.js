@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Bar } from "react-chartjs-2";
+import axios from "axios";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,8 +9,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import moment from 'moment';
+} from "chart.js";
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -23,21 +23,26 @@ ChartJS.register(
 
 const MonthlyEnergyConsumptionChart = () => {
   const [data, setData] = useState([]);
-  const [monthlyConsumption, setMonthlyConsumption] = useState(Array(12).fill(0));
+  const [monthlyConsumption, setMonthlyConsumption] = useState(
+    Array(12).fill(0)
+  );
   const [currentYear, setCurrentYear] = useState(moment().year());
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('http://localhost:3030/api/appliances/energy-consumption', {
-        headers: {
-          'auth-token': localStorage.getItem('token'), // Replace with actual token retrieval method
-        },
-      });
+      const res = await axios.get(
+        "http://localhost:3030/api/appliances/energy-consumption",
+        {
+          headers: {
+            "auth-token": localStorage.getItem("token"), // Replace with actual token retrieval method
+          },
+        }
+      );
       setData(res.data);
     } catch (error) {
-      console.error('Error fetching data', error);
+      console.error("Error fetching data", error);
     }
     setLoading(false);
   };
@@ -48,10 +53,10 @@ const MonthlyEnergyConsumptionChart = () => {
 
   useEffect(() => {
     if (data.length > 0) {
-      const yearlyData = data.filter((entry) =>
-        moment(entry.timestamp).year() === currentYear
+      const yearlyData = data.filter(
+        (entry) => moment(entry.timestamp).year() === currentYear
       );
-      
+
       const monthlyData = Array(12).fill(0);
       yearlyData.forEach((entry) => {
         const month = moment(entry.timestamp).month(); // 0 = January, 11 = December
@@ -70,7 +75,7 @@ const MonthlyEnergyConsumptionChart = () => {
       {
         label: `${currentYear} Monthly Energy Consumption (kWh)`,
         data: monthlyConsumption,
-        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+        backgroundColor: "rgba(209, 161, 3, 0.5)",
       },
     ],
   };
@@ -81,7 +86,7 @@ const MonthlyEnergyConsumptionChart = () => {
       y: {
         title: {
           display: true,
-          text: 'Energy (kWh)',
+          text: "Energy (kWh)",
         },
         beginAtZero: true,
       },
@@ -92,25 +97,60 @@ const MonthlyEnergyConsumptionChart = () => {
       },
       title: {
         display: true,
-        text: `Energy Consumption for ${currentYear}`,
+        text: "",
       },
     },
   };
 
   return (
     <div>
-      <h2>Monthly Energy Consumption</h2>
-      <div className="yearly-total">
-        <strong>Total Consumption for {currentYear}:</strong> 
-        {monthlyConsumption.reduce((acc, val) => acc + val, 0).toFixed(2)} kWh
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col-8">
+            <div class="row">
+              {!loading && data.length > 0 ? (
+                <Bar data={chartData} options={chartOptions} />
+              ) : (
+                <p>No data available</p>
+              )}
+            </div>
+            <div class="row align-items-center my-4">
+              <div class="col text-start">
+                <button
+                  class="btn"
+                  onClick={goToPreviousYear}
+                  disabled={loading}
+                >
+                  Previous Year
+                </button>
+              </div>
+              <div class="col-6"></div>
+              <div class="col text-end">
+                <button
+                  class="btn"
+                  onClick={goToNextYear}
+                  disabled={loading || currentYear >= moment().year()}
+                >
+                  Next Year
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div className="yearly-total text-start">
+              <h1 className="display-6">
+                <strong>Total Consumption for {currentYear}:</strong>
+                <br />
+                {monthlyConsumption
+                  .reduce((acc, val) => acc + val, 0)
+                  .toFixed(2)}{" "}
+                kWh
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div class="row align-items-center my-4"></div>
       </div>
-      <button onClick={goToPreviousYear} >
-        Previous Year
-      </button>
-      <button onClick={goToNextYear} disabled={loading || currentYear >= moment().year()}>
-        Next Year
-      </button>
-      {!loading && data.length > 0 ? <Bar data={chartData} options={chartOptions} /> : <p>No data available</p>}
     </div>
   );
 };

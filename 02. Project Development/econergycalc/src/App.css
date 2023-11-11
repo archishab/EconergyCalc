@@ -67,3 +67,22 @@
 i {
   cursor: pointer;
 }
+
+.btn {
+  background-color: #FCC30B;
+  border-color: #FCC30B;
+  color: black;
+}
+
+.btn.active {
+  background-color: #3F7E44;
+  border-color: #3F7E44;
+  color: white;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link  {
+  color: white;
+  background-color: #FCC30B;
+  border-color: #FCC30B;
+}

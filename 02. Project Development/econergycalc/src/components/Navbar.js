@@ -37,8 +37,8 @@ export default function Navbar() {
             aria-labelledby="offcanvasNavbarLabel"
           >
             <div className="full-height d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary ">
-              <div className="">
-                <Link className="navbar-brand" to="/">
+              <div className="align-items-center">
+                <Link className="navbar-brand" to="/dashboard">
                   <img src={FullLogo} alt="Bootstrap" width="300" />
                 </Link>
                 <button
@@ -58,16 +58,6 @@ export default function Navbar() {
                     }`}
                   >
                     Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/add"
-                    className={`nav-link link-body-emphasis ${
-                      location.pathname === "/add" ? "active" : ""
-                    }`}
-                  >
-                    Add Appliance
                   </Link>
                 </li>
                 <li>

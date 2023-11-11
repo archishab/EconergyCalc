@@ -10,10 +10,10 @@ export default function Appliance(props) {
   const { appliances, getAppliance, editAppliance } = context;
   let navigate = useNavigate();
   useEffect(() => {
-    if(localStorage.getItem('token') !== null){
+    if (localStorage.getItem("token") !== null) {
       getAppliance();
     } else {
-      navigate("/")
+      navigate("/");
     }
   }, []);
 
@@ -28,17 +28,30 @@ export default function Appliance(props) {
     eactive: "",
   });
 
-    
   const updateAppliance = (currentAppliance) => {
     ref.current.click();
-    setAppliances({id: currentAppliance._id, eapplianceType: currentAppliance.applianceType, eapplianceName: currentAppliance.applianceName, epowerRating: currentAppliance.powerRating, equantity: currentAppliance.quantity, eactive: currentAppliance.active});
+    setAppliances({
+      id: currentAppliance._id,
+      eapplianceType: currentAppliance.applianceType,
+      eapplianceName: currentAppliance.applianceName,
+      epowerRating: currentAppliance.powerRating,
+      equantity: currentAppliance.quantity,
+      eactive: currentAppliance.active,
+    });
   };
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("Updating the appliance...", appliance)
-    editAppliance(appliance.id, appliance.eapplianceType, appliance.eapplianceName, appliance.epowerRating, appliance.equantity, appliance.eactive)
-    props.showAlert("Appliance updated successfully", "success")
+    console.log("Updating the appliance...", appliance);
+    editAppliance(
+      appliance.id,
+      appliance.eapplianceType,
+      appliance.eapplianceName,
+      appliance.epowerRating,
+      appliance.equantity,
+      appliance.eactive
+    );
+    props.showAlert("Appliance updated successfully", "success");
   };
 
   const onChange = (e) => {
@@ -150,9 +163,11 @@ export default function Appliance(props) {
               </div>
               <div class="modal-footer">
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                  
-
-                  <button className="btn btn-primary" onClick={handleClick} data-bs-dismiss="modal">
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleClick}
+                    data-bs-dismiss="modal"
+                  >
                     Update
                   </button>
                 </div>
@@ -161,12 +176,18 @@ export default function Appliance(props) {
           </div>
         </div>
       </div>
- 
+
       <div className="row my-3">
         <div class="col-5">
           <h3 className="">My Appliances</h3>
         </div>
-        <div class="col text-end"><AddApplianceForm heading="Add new Appliance" showAlert={props.showAlert}/><ApplianceTracker /></div>
+        <div class="col text-end">
+          <AddApplianceForm
+            heading="Add new Appliance"
+            showAlert={props.showAlert}
+          />
+          <ApplianceTracker />
+        </div>
       </div>
       <div div className="row my-3">
         {appliances.map((appliance) => {

@@ -45,11 +45,6 @@ function App() {
                 path="/recommendations"
                 element={<Recommendations />}
               />
-              <Route
-                exact
-                path="/add"
-                element={<AddApplianceForm heading="Add New Appliance" />}
-              />
               <Route exact path="/dashboard" element={<Dashboard showAlert={showAlert}/>} />
             </Routes>
             </div>

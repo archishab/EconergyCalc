@@ -13,29 +13,46 @@ export default function Dashboard(props) {
     }
   }, []);
 
-  const handleClick = async (e) => {
-    localStorage.setItem('graph-type', e.targ)
-  }
+  const [active, setActive] = useState("Weekly");
+
+  const handleClick = (e) => {
+    setActive(e.target.value);
+  };
+
   const { showAlert } = props;
   return (
     <div className="container">
-      <h3>My Consumption</h3>
-      <div class="container text-center">
-        <div class="row justify-content-center">
-          <div class="col">
-            <div class="btn-group text-center">
-              <button type="button" class="btn btn-primary" value="Weekly" onClick={handleClick}>
-                Weekly
-              </button>
-              <button type="button" class="btn btn-primary" value="Monthly" onClick={handleClick}>
-                Monthly
-              </button>
-            </div>
+      <div className="row my-3">
+        <div class="col-5">
+          <h3 className="">My Consumption</h3>
+        </div>
+        <div class="col text-end">
+          <div className="btn-group text-center">
+            <button
+              type="button"
+              className={`btn btn-warning ${
+                active === "Weekly" ? "active" : ""
+              }`}
+              value="Weekly"
+              onClick={handleClick}
+            >
+              Weekly
+            </button>
+            <button
+              type="button"
+              className={`btn btn-warning ${
+                active === "Monthly" ? "active" : ""
+              }`}
+              value="Monthly"
+              onClick={handleClick}
+            >
+              Monthly
+            </button>
           </div>
         </div>
       </div>
-      <WeeklyGraph />
-      <MonthlyGraph />
+      {active === "Weekly" ? <WeeklyGraph /> : ""}
+      {active === "Monthly" ? <MonthlyGraph /> : ""}
       <hr />
       <Apppliance showAlert={showAlert} />
     </div>

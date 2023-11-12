@@ -34,7 +34,7 @@ export default function AddApplianceForm(props) {
     <>
       <button
         type="button"
-        class="btn btn-primary me-1"
+        class="btn me-1"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal1"
       >

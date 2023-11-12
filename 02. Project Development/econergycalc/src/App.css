@@ -74,6 +74,12 @@ i {
   color: black;
 }
 
+.btn:hover {
+  background-color: #D1A103;
+  border-color: #D1A103;
+  color: whitesmoke;
+}
+
 .btn.active {
   background-color: #3F7E44;
   border-color: #3F7E44;

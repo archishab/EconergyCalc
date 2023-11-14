@@ -40,6 +40,7 @@ router.post(
       user = await User.create({
         username: req.body.username,
         email: req.body.email,
+        location: req.body.location,
         password: securedPassword,
       });
       const data = {

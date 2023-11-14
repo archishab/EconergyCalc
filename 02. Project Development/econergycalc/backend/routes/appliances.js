@@ -29,13 +29,13 @@ router.post(
       min: 1,
     }),
     body("powerRating", "Power Rating cannot be empty").isLength({ min: 1 }),
-    body("quantity", "Quantity cannot be empty").isLength({ min: 1 }),
+    body("energyStarCompliant", "Energy Star Compliant cannot be empty").exists(),
     body("active", "Active cannot be empty").exists(),
   ],
 
   async (req, res) => {
     try {
-      const { applianceType, applianceName, powerRating, quantity, active } =
+      const { applianceType, applianceName, powerRating, energyStarCompliant, active } =
         req.body;
 
       //if there are errors, return bad request and the errors
@@ -48,7 +48,7 @@ router.post(
         applianceType,
         applianceName,
         powerRating,
-        quantity,
+        energyStarCompliant,
         active,
         user: req.user.id,
       });
@@ -64,7 +64,7 @@ router.post(
 
 // ROUTE 3: Update existing appliance : PUT "/api/appliances/updateappliance". Login required
 router.put("/updateappliance/:id", fetchuser, async (req, res) => {
-  const { applianceType, applianceName, powerRating, quantity, active } =
+  const { applianceType, applianceName, powerRating, energyStarCompliant, active } =
     req.body;
   try {
     const newAppliance = {};
@@ -77,8 +77,8 @@ router.put("/updateappliance/:id", fetchuser, async (req, res) => {
     if (powerRating) {
       newAppliance.powerRating = powerRating;
     }
-    if (quantity) {
-      newAppliance.quantity = quantity;
+    if (energyStarCompliant) {
+      newAppliance.energyStarCompliant = energyStarCompliant;
     }
     if (active) {
       newAppliance.active = active;
@@ -160,6 +160,24 @@ router.get('/energy-consumption', fetchuser, async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get('/getrecommendations', fetchuser, async (req, res) => {
+  
+  try {
+    const appliances = await Appliance.find({ user: req.user.id });
+
+    const recommendations = appliances.map((appliance) => {
+      if (!appliance.energyStarCompliant) {
+        return `You have indicated that ${appliance.applianceName} is not Energy Star Compliant. Consider replacing the appliance with a more energy effecient alternative.`;
+      }
+    });
+
+    res.json({ recommendations });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
   }
 });
 

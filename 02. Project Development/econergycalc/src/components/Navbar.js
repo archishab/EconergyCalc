@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoIcon from "../assets/LogoIcon.png";
@@ -8,28 +9,52 @@ export default function Navbar() {
   let navigate = useNavigate();
   const handleSignOut = () => {
     localStorage.clear();
-    navigate("/")
-  }
+    navigate("/");
+  };
   let location = useLocation();
 
   useEffect(() => {
     console.log(location.pathname);
   }, [location]);
 
+  const [recommendations, setRecommendations] = useState([]);
+  const [recommendationsCount, setRecommendationsCount] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3030/api/appliances/getrecommendations`, {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        const recommendationList = response.data.recommendations.filter(rec => rec !== null);
+        setRecommendations(recommendationList);
+        setRecommendationsCount(recommendationList.length);
+      })
+      .catch((error) => {
+        console.error("Error fetching recommendations:", error);
+      });
+  });
+
   return (
     <>
       <nav className="navbar bg-body-tertiary d-flex">
         <div className="container-fluid">
-          {localStorage.getItem('token')? <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>:<div></div>}
+          {localStorage.getItem("token") ? (
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          ) : (
+            <div></div>
+          )}
           <div
             className="offcanvas offcanvas-start"
             tabIndex="-1"
@@ -68,6 +93,7 @@ export default function Navbar() {
                     }`}
                   >
                     Recommendations
+                    <span class="badge rounded-pill text-bg-danger mx-2">{recommendationsCount}</span>
                   </Link>
                 </li>
                 <li>
@@ -96,7 +122,7 @@ export default function Navbar() {
                     height="32"
                     className="rounded-circle me-2"
                   />
-                  <strong>{localStorage.getItem('username')}</strong>
+                  <strong>{localStorage.getItem("username")}</strong>
                 </Link>
                 <ul
                   className="user-menu dropdown-menu text-small shadow"
@@ -111,8 +137,12 @@ export default function Navbar() {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <button className="dropdown-item" onClick={handleSignOut} data-bs-dismiss="offcanvas"
-                  aria-label="Close">
+                    <button
+                      className="dropdown-item"
+                      onClick={handleSignOut}
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                    >
                       Sign out
                     </button>
                   </li>

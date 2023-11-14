@@ -18,6 +18,10 @@ const applianceSchema = new Schema({
     type: Number,
     required: true,
   },
+  energyStarCompliant: {
+    type: Boolean,
+    required: true,
+  },
   active: {
     type: Boolean,
     required: true,

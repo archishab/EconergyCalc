@@ -10,7 +10,7 @@ export default function AddApplianceForm(props) {
     applianceType: "",
     applianceName: "",
     powerRating: "",
-    quantity: "",
+    energyStarCompliant: "",
     active: "",
   });
 
@@ -20,7 +20,7 @@ export default function AddApplianceForm(props) {
       appliance.applianceType,
       appliance.applianceName,
       appliance.powerRating,
-      appliance.quantity,
+      appliance.energyStarCompliant,
       appliance.active
     );
     props.showAlert("Appliance Added Successfully", "success")
@@ -66,19 +66,13 @@ export default function AddApplianceForm(props) {
                   <label htmlFor="applianceType" className="form-label">
                     Appliance Type
                   </label>
-                  {/* <select className="form-select" aria-label="Default select example" onChange={onChange}>
-            <option defaultValue>Select Appliance Type</option>
-            <option value="Refrigerator">Refrigerator</option>
-            <option value="Stove">Stove</option>
-            <option value="Dishwasher">Dishwasher</option>
-          </select> */}
-                  <input
-                    type="text"
-                    className="form-control"
-                    onChange={onChange}
-                    id="applianceType"
-                    name="applianceType"
-                  />
+                  <select className="form-select" id="applianceType"
+                    name="applianceType" onChange={onChange}>
+                    <option >Select Appliance Type</option>
+                    <option value="Refrigerator">Refrigerator</option>
+                    <option value="Stove">Stove</option>
+                    <option value="Dishwasher">Dishwasher</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="applianceName" className="form-label">
@@ -105,28 +99,20 @@ export default function AddApplianceForm(props) {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="UsageDuration" className="form-label">
-                    Usage Duration
+                  <label htmlFor="energyStarCompliant" className="form-label">
+                    Energy Star Compliant?
                   </label>
-                  <input
-                    type="number"
-                    className="form-control"
+                  <select
+                    className="form-select"
+                    id="energyStarCompliant"
+                    name="energyStarCompliant"
+                    aria-label="Default select example"
                     onChange={onChange}
-                    id="UsageDuration"
-                    name="UsageDuration"
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="quantity" className="form-label">
-                    Quantity
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    onChange={onChange}
-                    id="quantity"
-                    name="quantity"
-                  />
+                  >
+                    <option>Select a value</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="active" className="form-label">

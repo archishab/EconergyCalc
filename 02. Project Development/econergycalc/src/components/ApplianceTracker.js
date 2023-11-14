@@ -104,7 +104,9 @@ const ApplianceTracker = ({ userId }) => {
                 onChange={handleApplianceChange}
               >
                 <option value="">Select Appliance</option>
-                {appliances.map((appliance) => (
+                {appliances
+                .filter(appliance => appliance.active)
+                .map((appliance) => (
                   <option
                     key={appliance._id}
                     value={appliance._id}

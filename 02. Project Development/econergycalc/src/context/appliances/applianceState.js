@@ -27,7 +27,7 @@ const ApplianceState = (props) => {
     applianceType,
     applianceName,
     powerRating,
-    quantity,
+    energyStarCompliant,
     active
   ) => {
     const response = await fetch(`${host}api/appliances/addappliance/`, {
@@ -41,7 +41,7 @@ const ApplianceState = (props) => {
         applianceType,
         applianceName,
         powerRating,
-        quantity,
+        energyStarCompliant,
         active,
       }),
     });
@@ -54,7 +54,7 @@ const ApplianceState = (props) => {
       applianceType: applianceType,
       applianceName: applianceName,
       powerRating: powerRating,
-      quantity: quantity,
+      energyStarCompliant: energyStarCompliant,
       active: active,
       __v: 0,
     };
@@ -92,7 +92,7 @@ const ApplianceState = (props) => {
     applianceType,
     applianceName,
     powerRating,
-    quantity,
+    energyStarCompliant,
     active
   ) => {
     // API CALL
@@ -109,7 +109,7 @@ const ApplianceState = (props) => {
           applianceType,
           applianceName,
           powerRating,
-          quantity,
+          energyStarCompliant,
           active,
         }),
       }
@@ -124,7 +124,7 @@ const ApplianceState = (props) => {
         newAppliances[index].applianceType = applianceType;
         newAppliances[index].applianceName = applianceName;
         newAppliances[index].powerRating = powerRating;
-        newAppliances[index].quantity = quantity;
+        newAppliances[index].energyStarCompliant = energyStarCompliant;
         newAppliances[index].active = active;
         break;
       }
@@ -137,7 +137,7 @@ const ApplianceState = (props) => {
     applianceType,
     applianceName,
     powerRating,
-    quantity,
+    energyStarCompliant,
     active
   ) => {
     const response = await fetch(`${host}api/appliances/usage/`, {
@@ -151,7 +151,7 @@ const ApplianceState = (props) => {
         applianceType,
         applianceName,
         powerRating,
-        quantity,
+        energyStarCompliant,
         active,
       }),
     });
@@ -164,7 +164,7 @@ const ApplianceState = (props) => {
       applianceType: applianceType,
       applianceName: applianceName,
       powerRating: powerRating,
-      quantity: quantity,
+      quantity: energyStarCompliant,
       active: active,
       __v: 0,
     };

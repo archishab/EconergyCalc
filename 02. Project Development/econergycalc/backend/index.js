@@ -1,9 +1,6 @@
 const connectToMongo = require("./db");
 var cors = require('cors')
 
- 
-
-
 connectToMongo()
   .then(() => {
     console.log("Database initialization completed.");

@@ -24,7 +24,7 @@ export default function Appliance(props) {
     eapplianceType: "",
     eapplianceName: "",
     epowerRating: "",
-    equantity: "",
+    eenergyStarCompliant: "",
     eactive: "",
   });
 
@@ -35,7 +35,7 @@ export default function Appliance(props) {
       eapplianceType: currentAppliance.applianceType,
       eapplianceName: currentAppliance.applianceName,
       epowerRating: currentAppliance.powerRating,
-      equantity: currentAppliance.quantity,
+      eenergyStarCompliant: currentAppliance.energyStarCompliant,
       eactive: currentAppliance.active,
     });
   };
@@ -48,7 +48,7 @@ export default function Appliance(props) {
       appliance.eapplianceType,
       appliance.eapplianceName,
       appliance.epowerRating,
-      appliance.equantity,
+      appliance.eenergyStarCompliant,
       appliance.eactive
     );
     props.showAlert("Appliance updated successfully", "success");
@@ -103,6 +103,7 @@ export default function Appliance(props) {
                     id="eapplianceType"
                     name="eapplianceType"
                     value={appliance.eapplianceType}
+                    disabled
                   />
                 </div>
                 <div className="mb-3">
@@ -132,17 +133,20 @@ export default function Appliance(props) {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="quantity" className="form-label">
-                    Quantity
+                  <label htmlFor="active" className="form-label">
+                  Energy Star Compliant?
                   </label>
-                  <input
-                    type="number"
-                    className="form-control"
+                  <select
+                    className="form-select"
+                    id="eenergyStarCompliant"
+                    name="eenergyStarCompliant"
+                    aria-label="Default select example"
                     onChange={onChange}
-                    id="equantity"
-                    name="equantity"
-                    value={appliance.equantity}
-                  />
+                    value={appliance.eenergyStarCompliant}
+                  >
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="active" className="form-label">

@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import Recommendations from "./components/Recommendations";
 import ApplianceState from "./context/appliances/ApplianceState";
 import Alert from "./components/Alert.js";
+import Forum from "./components/Forum.js";
 
 function App() {
   //localStorage.setItem('token', null)
@@ -17,40 +18,53 @@ function App() {
   const showAlert = (message, type) => {
     setAlert({
       msg: message,
-      type: type
-    })
+      type: type,
+    });
     setTimeout(() => {
       setAlert(null);
     }, 2000);
-    }
-  
+  };
+
   return (
     <>
       <ApplianceState>
         <BrowserRouter>
           <div className="wrapper">
             <Navbar />
-            <Alert alert={alert}/>
+            <Alert alert={alert} />
             <div className="container">
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/login" element={<Login heading="Login" showAlert={showAlert}/>} />
-              <Route
-                exact
-                path="/signup"
-                element={<SignUp heading="Sign Up" showAlert={showAlert}/>}
-              />
-              <Route
-                exact
-                path="/recommendations"
-                element={<Recommendations />}
-              />
-              <Route exact path="/dashboard" element={<Dashboard showAlert={showAlert}/>} />
-            </Routes>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route
+                  exact
+                  path="/login"
+                  element={<Login heading="Login" showAlert={showAlert} />}
+                />
+                <Route
+                  exact
+                  path="/signup"
+                  element={<SignUp heading="Sign Up" showAlert={showAlert} />}
+                />
+                <Route
+                  exact
+                  path="/recommendations"
+                  element={<Recommendations heading="Recommendations" />}
+                />
+                <Route
+                  exact
+                  path="/dashboard"
+                  element={<Dashboard heading="Login" showAlert={showAlert} />}
+                />
+                <Route
+                  exact
+                  path="/forum"
+                  element={<Forum heading="Forum" showAlert={showAlert} />}
+                />
+              </Routes>
             </div>
           </div>
         </BrowserRouter>
-        </ApplianceState>
+      </ApplianceState>
     </>
   );
 }

@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const usageSchema = new Schema({
-  user:{
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user",
   },
-  appliance:{
+  appliance: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'appliances'
+    ref: "appliances",
   },
   duration: Number, // in seconds
   energyConsumed: Number, // in kWh

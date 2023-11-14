@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const RecommendationsComponent = ({ userId }) => {
+const RecommendationsComponent = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendationsCount, setRecommendationsCount] = useState(0);
 
@@ -14,7 +14,9 @@ const RecommendationsComponent = ({ userId }) => {
         },
       })
       .then((response) => {
-        const recommendationList = response.data.recommendations.filter(rec => rec !== null);
+        const recommendationList = response.data.recommendations.filter(
+          (rec) => rec !== null
+        );
         setRecommendations(recommendationList);
         setRecommendationsCount(recommendationList.length);
       })
@@ -25,21 +27,20 @@ const RecommendationsComponent = ({ userId }) => {
 
   return (
     <div>
-      <h2>Recommendations</h2>
-      <p>Number of Recommendations: {recommendationsCount}</p>
-
-      {recommendations.map((rec, index) => {
-        return (
-          <ul className="list-group">
-            <li
-              className="list-group-item"
-              key={index}
-            >
-              {rec}
-            </li>
-          </ul>
+      <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h4 class="border-bottom pb-2 mb-0">{props.heading}</h4>
+        {recommendations.map((rec, index) => {
+        return (   
+      <div class="d-flex text-body-secondary pt-3" key={index}>
+          <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+            <div class="d-flex justify-content-between">
+              <strong class="text-gray-dark">{rec}</strong>
+            </div>
+          </div>
+        </div>
         );
       })}
+      </div>
     </div>
   );
 };

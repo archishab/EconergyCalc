@@ -5,7 +5,7 @@ const fetchuser = require("../middleware/fetchuser");
 const Appliance = require("../models/Appliance");
 const ApplianceUsage = require("../models/Usage");
 
-// ROUTE 1: Fetch user's appliances : POST "/api/appliances/fetchallappliance". Login required
+// ROUTE 1: Fetch user's appliances : GET "/api/appliances/fetchallappliance". Login required
 router.get("/fetchallappliance", fetchuser, async (req, res) => {
   try {
     const appliance = await Appliance.find({ user: req.user.id });
@@ -174,7 +174,7 @@ router.get('/getrecommendations', fetchuser, async (req, res) => {
       }
     });
 
-    res.json({ recommendations });
+    res.json({ recommendations,  appliances });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

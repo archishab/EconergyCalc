@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import LogoIcon from "../assets/LogoIcon.png";
 import FullLogo from "../assets/FullLogo.png";
 
-export default function Navbar() {
+export default function Navbar(props) {
   let navigate = useNavigate();
   const handleSignOut = () => {
     localStorage.clear();
@@ -98,7 +98,7 @@ export default function Navbar() {
                 </li>
                 <li>
                   <Link
-                    to="/recommendations"
+                    to="/forum"
                     className={`nav-link link-body-emphasis ${
                       location.pathname === "/forum" ? "active" : ""
                     }`}

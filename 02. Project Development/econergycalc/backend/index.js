@@ -19,6 +19,7 @@ app.use(express.json());
 // Available routes
 app.use("/api/auth", require("./routes/auth.js"));
 app.use("/api/appliances", require("./routes/appliances.js"));
+app.use("/api/forum", require("./routes/forum.js"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

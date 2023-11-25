@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import ForumList from "./ForumList";
+import Leaderboard from "./Leaderboard";
 
 const Forum = (props) => {
   const [content, setContent] = useState("");
@@ -99,6 +100,7 @@ const Forum = (props) => {
         </div>
       </div>
       <ForumList />
+      <Leaderboard />
     </div>
   );
 };

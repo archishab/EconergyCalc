@@ -1,6 +1,25 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const replySchema = new Schema({
+  content: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const postSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,6 +39,7 @@ const postSchema = new Schema({
   downVote: {
     type: Number, 
   },
+  replies: [replySchema],
   timestamp: {
     type: Date,
     default: Date.now,

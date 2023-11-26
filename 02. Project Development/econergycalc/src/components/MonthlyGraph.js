@@ -36,7 +36,7 @@ const MonthlyEnergyConsumptionChart = () => {
         "http://localhost:3030/api/appliances/energy-consumption",
         {
           headers: {
-            "auth-token": localStorage.getItem("token"), // Replace with actual token retrieval method
+            "auth-token": localStorage.getItem("token"), 
           },
         }
       );

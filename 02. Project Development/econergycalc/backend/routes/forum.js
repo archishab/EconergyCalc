@@ -51,7 +51,7 @@ router.get('/posts', async (req, res) => {
   });
 
 // ROUTE 3: Like a post : POST "/api/forum/likepost/:id". Login required
-router.post('/likepost/:id', async (req, res) => {
+router.post('/likepost/:id', fetchuser, async (req, res) => {
   try {
       const postId = req.params.id;
       const post = await Post.findById(postId);
@@ -108,7 +108,7 @@ router.get('/leaderboard', async (req, res) => {
 // ROUTE 6: Reply to a post : POST "/api/forum/replytopost/:id". Login required
 router.post('/replytopost/:id', fetchuser, [body('content', 'Content cannot be empty').exists()], async (req, res) => {
   try {
-    const { content } = req.body;
+    const { content, username } = req.body;
     const postId = req.params.id;
 
     // Validate request
@@ -126,7 +126,7 @@ router.post('/replytopost/:id', fetchuser, [body('content', 'Content cannot be e
     const reply = {
       content,
       user: req.user.id,
-      username: req.user.username, // Make sure you have username in the req.user object
+      username: username,
     };
 
     post.replies.push(reply);

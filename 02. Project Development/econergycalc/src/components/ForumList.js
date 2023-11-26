@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 
-const ForumList = (props) => {
+const ForumList = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const username = localStorage.getItem("username");
 
+  // Fetch posts on component mount
   useEffect(() => {
     fetchPosts();
-  });
+  }, []); // The empty array ensures this effect runs only once after the component mounts
 
+  // Function to fetch posts from the server
   const fetchPosts = async () => {
     try {
       const response = await axios.get("http://localhost:3030/api/forum/posts");
-      setPosts(response.data);
+      setPosts(response.data); // Set the posts in state
     } catch (error) {
       setError("Failed to load posts");
       console.error("There was an error!", error);
@@ -23,12 +25,20 @@ const ForumList = (props) => {
     }
   };
 
-
+  // Function to handle post likes
   const likePost = async (id) => {
     try {
-      const response = await axios.post(`http://localhost:3030/api/forum/likepost/${id}`);
+      const response = await axios.post(
+        `http://localhost:3030/api/forum/likepost/${id}`,
+        {},
+        {
+          headers: {
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       // Update the posts state with the new like count
-      setPosts(posts.map(post => post._id === id ? { ...post, upVote: response.data.upVote } : post));
+      setPosts(posts.map((post) => (post._id === id ? { ...post, upVote: response.data.upVote } : post)));
     } catch (error) {
       console.error("Error liking the post", error);
     }
@@ -44,37 +54,72 @@ const ForumList = (props) => {
     }
   };
 
+  // Function to handle post replies
+  const replyToPost = async (content, postId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3030/api/forum/replytopost/${postId}`,
+        { content, username },
+        {
+          headers: {
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      // Update the posts state to include the new reply
+      setPosts(posts.map((post) => (post._id === postId ? { ...post, replies: [...post.replies, response.data] } : post)));
+    } catch (error) {
+      console.error("Error replying to the post", error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
   return (
     <div>
       {posts.length > 0 ? (
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <div className="my-3 p-3 bg-body rounded shadow-sm">
           {posts.map((post) => (
-            <div>        
-            <div class="d-flex text-body-secondary py-3" key={post._id}>
-               <p class="pb-3 mb-0 small lh-sm border-bottom">
-                <div class="d-block text-gray-dark">
-                <strong >@{post.username}</strong> • 
-                <time dateTime={post.timestamp}>
-                {new Date(post.timestamp).toLocaleString()}
-                </time>
+            <div key={post._id}>
+              <div className="d-flex text-body-secondary py-3">
+                <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
+                  <strong className="d-block text-gray-dark">@{post.username}</strong>
+                  {post.content}
+                  <div>
+                    <i class="fa-solid fa-thumbs-up fa-lg me-1" onClick={() => likePost(post._id)}></i>{post.upVote}
+                    <i class="fa-solid fa-thumbs-down fa-lg me-1 ms-3" onClick={() => dislikePost(post._id)}></i>{post.downVote}
+                    <hr/>
+                  </div>
+                  <div className="mt-2">
+                    {post.replies && post.replies.map((reply) => (
+                      <div key={reply._id} className="mt-2">
+                        <strong>@{reply.username}</strong>
+                        <p>{reply.content}</p>
+                        <time dateTime={reply.timestamp}>
+                          {new Date(reply.timestamp).toLocaleString()}
+                        </time>
+                      </div>
+                    ))}
+                    <form onSubmit={(e) => {
+                      e.preventDefault();
+                      const content = e.target.elements.reply.value;
+                      replyToPost(content, post._id);
+                      e.target.elements.reply.value = ''; // Clear input after submit
+                    }}>
+                      <textarea name="reply" required placeholder="Write a reply..."></textarea>
+                      <button type="submit">Reply</button>
+                    </form>
+                  </div>
                 </div>
-               
-               
-               {post.content}
-               </p> 
-               <div>
-                </div>
-            
+              </div>
+              <hr />
             </div>
-            <i class="fa-solid fa-thumbs-up fa-lg me-1" onClick={() => likePost(post._id)}></i>{post.upVote}
-            <i class="fa-solid fa-thumbs-down fa-lg me-1 ms-3" onClick={() => dislikePost(post._id)}></i>{post.downVote}
-            <hr/>
-            </div>
-            
           ))}
         </div>
       ) : (

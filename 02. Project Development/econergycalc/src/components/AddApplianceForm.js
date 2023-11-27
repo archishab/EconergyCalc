@@ -1,10 +1,11 @@
-import "../App.css";
 import React, { useState, useContext } from "react";
+import axios from "axios";
 import ApplianceContext from "../context/appliances/ApplianceContext";
 
 export default function AddApplianceForm(props) {
   const context = useContext(ApplianceContext);
   const { addAppliance } = context;
+  const [modelNumber, setModelNumber] = useState("");
 
   const [appliance, setAppliances] = useState({
     applianceType: "",
@@ -23,11 +24,52 @@ export default function AddApplianceForm(props) {
       appliance.energyStarCompliant,
       appliance.active
     );
-    props.showAlert("Appliance Added Successfully", "success")
+    props.showAlert("Appliance Added Successfully", "success");
   };
 
   const onChange = (e) => {
     setAppliances({ ...appliance, [e.target.name]: e.target.value });
+  };
+
+  const fetchApplianceData = async () => {
+    if (modelNumber) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3030/api/appliances/findappliance/${modelNumber}`
+        );
+        if (response.data) {
+          console.log("API Response:", response.data);
+          setAppliances({
+            ...appliance,
+            applianceType: response.data["Appliance Type"],
+            applianceName: response.data.Brand,
+            powerRating:
+              response.data["Total Annual Energy Consumption (kWh/year)"], 
+            energyStarCompliant: true,
+          });
+          console.log("Updated State:", appliance); 
+        }
+      } catch (error) {
+        console.error("Error fetching appliance data", error);
+        setAppliances({
+          ...appliance,
+          applianceType: "",
+          applianceName: "",
+          powerRating: "",
+          energyStarCompliant: "",
+          active: "",
+        });
+      }
+    }
+  };
+
+  const onModelNumberChange = (e) => {
+    setModelNumber(e.target.value);
+  };
+
+  const onSearchClick = (e) => {
+    e.preventDefault();
+    fetchApplianceData();
   };
 
   return (
@@ -63,12 +105,36 @@ export default function AddApplianceForm(props) {
             <form>
               <div class="modal-body">
                 <div className="mb-3">
+                  <label htmlFor="modelNumber" className="form-label">
+                    Model Number
+                  </label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      onChange={onModelNumberChange}
+                      value={modelNumber}
+                      id="modelNumber"
+                      name="modelNumber"
+                      placeholder="Enter Model Number"
+                    />
+                    <button className="btn btn-primary" onClick={onSearchClick}>
+                      Search
+                    </button>
+                  </div>
+                </div>
+                <div className="mb-3">
                   <label htmlFor="applianceType" className="form-label">
                     Appliance Type
                   </label>
-                  <select className="form-select" id="applianceType"
-                    name="applianceType" onChange={onChange}>
-                    <option >Select Appliance Type</option>
+                  <select
+                    className="form-select"
+                    id="applianceType"
+                    name="applianceType"
+                    onChange={onChange}
+                    value={appliance.applianceType}
+                  >
+                    <option>Select Appliance Type</option>
                     <option value="Refrigerator">Refrigerator</option>
                     <option value="Stove">Stove</option>
                     <option value="Dishwasher">Dishwasher</option>
@@ -84,6 +150,7 @@ export default function AddApplianceForm(props) {
                     onChange={onChange}
                     id="applianceName"
                     name="applianceName"
+                    value={appliance.applianceName}
                   />
                 </div>
                 <div className="mb-3">
@@ -96,6 +163,7 @@ export default function AddApplianceForm(props) {
                     onChange={onChange}
                     id="powerRating"
                     name="powerRating"
+                    value={appliance.powerRating}
                   />
                 </div>
                 <div className="mb-3">
@@ -108,6 +176,7 @@ export default function AddApplianceForm(props) {
                     name="energyStarCompliant"
                     aria-label="Default select example"
                     onChange={onChange}
+                    value={appliance.energyStarCompliant}
                   >
                     <option>Select a value</option>
                     <option value="true">Yes</option>
@@ -133,7 +202,11 @@ export default function AddApplianceForm(props) {
               </div>
               <div class="modal-footer">
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                  <button className="btn btn-primary" onClick={handleClick} data-bs-dismiss="modal">
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleClick}
+                    data-bs-dismiss="modal"
+                  >
                     Add
                   </button>
                 </div>

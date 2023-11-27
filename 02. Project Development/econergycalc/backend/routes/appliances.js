@@ -1,4 +1,6 @@
 const express = require("express");
+const csv = require("csv-parser");
+const fs = require("fs");
 const router = express.Router();
 const { body, query, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
@@ -9,7 +11,7 @@ const ApplianceUsage = require("../models/Usage");
 router.get("/fetchallappliance", fetchuser, async (req, res) => {
   try {
     const appliance = await Appliance.find({ user: req.user.id });
-    
+
     res.json(appliance);
   } catch (error) {
     console.error(error.message);
@@ -29,14 +31,22 @@ router.post(
       min: 1,
     }),
     body("powerRating", "Power Rating cannot be empty").isLength({ min: 1 }),
-    body("energyStarCompliant", "Energy Star Compliant cannot be empty").exists(),
+    body(
+      "energyStarCompliant",
+      "Energy Star Compliant cannot be empty"
+    ).exists(),
     body("active", "Active cannot be empty").exists(),
   ],
 
   async (req, res) => {
     try {
-      const { applianceType, applianceName, powerRating, energyStarCompliant, active } =
-        req.body;
+      const {
+        applianceType,
+        applianceName,
+        powerRating,
+        energyStarCompliant,
+        active,
+      } = req.body;
 
       //if there are errors, return bad request and the errors
       const errors = validationResult(req);
@@ -64,8 +74,13 @@ router.post(
 
 // ROUTE 3: Update existing appliance : PUT "/api/appliances/updateappliance". Login required
 router.put("/updateappliance/:id", fetchuser, async (req, res) => {
-  const { applianceType, applianceName, powerRating, energyStarCompliant, active } =
-    req.body;
+  const {
+    applianceType,
+    applianceName,
+    powerRating,
+    energyStarCompliant,
+    active,
+  } = req.body;
   try {
     const newAppliance = {};
     if (applianceType) {
@@ -133,7 +148,7 @@ router.delete("/deleteappliance/:id", fetchuser, async (req, res) => {
 });
 
 // ROUTE 5: Add usage for appliance : POST "/api/appliances/usage". Login required
-router.post('/usage', async (req, res) => {
+router.post("/usage", async (req, res) => {
   try {
     const { user, appliance, duration, energyConsumed } = req.body;
 
@@ -145,17 +160,17 @@ router.post('/usage', async (req, res) => {
     });
 
     await newUsage.save();
-    res.status(201).send('Usage recorded successfully');
+    res.status(201).send("Usage recorded successfully");
   } catch (error) {
-    res.status(500).send('Error recording usage');
+    res.status(500).send("Error recording usage");
   }
-}); 
+});
 
 // ROUTE 6: Fetch daily energy consumption : GET "/api/appliances/energy-consumption". Login required
-router.get('/energy-consumption', fetchuser, async (req, res) => {
+router.get("/energy-consumption", fetchuser, async (req, res) => {
   try {
     const appliance = await ApplianceUsage.find({ user: req.user.id });
-    
+
     res.json(appliance);
   } catch (error) {
     console.error(error.message);
@@ -163,8 +178,8 @@ router.get('/energy-consumption', fetchuser, async (req, res) => {
   }
 });
 
-router.get('/getrecommendations', fetchuser, async (req, res) => {
-  
+// ROUTE 7: Get recommendations based on appliances added : GET "/api/appliances/getrecommendations". Login required
+router.get("/getrecommendations", fetchuser, async (req, res) => {
   try {
     const appliances = await Appliance.find({ user: req.user.id });
 
@@ -174,12 +189,40 @@ router.get('/getrecommendations', fetchuser, async (req, res) => {
       }
     });
 
-    res.json({ recommendations,  appliances });
+    res.json({ recommendations, appliances });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
+
+// ROUTE 8: Fetch appliance detail using model number : GET "/api/appliances/findappliance". Login required
+router.get("/findappliance/:modelNumber", async (req, res) => {
+  let results = [];
+  fs.createReadStream(
+    "/Users/archishabhattacharya/Library/CloudStorage/OneDrive-Personal/Documents/School/University of Regina/13. Fall 2023/ENSE 405/Project/EconergyCalc/02. Project Development/econergycalc/backend/routes/data/Dishwashers2023-11-24.csv"
+  )
+  .pipe(csv())
+  .on('data', (data) => results.push(data))
+  .on('end', () => {
+    // The user input model number
+    const userInputModel = req.params.modelNumber;
+
+    // Find the first matching appliance where the .csv file model regex matches the user input
+    const appliance = results.find(appliance => {
+      // Create a regex pattern from the .csv file model, replacing wildcard characters
+      const modelRegex = new RegExp('^' + appliance.Model.replace(/[\*\#]/g, '.*') + '$', 'i');
+      return modelRegex.test(userInputModel);
+    });
+    
+    if (appliance) {
+      res.json(appliance);
+    } else {
+      res.status(404).send('Appliance not found');
+    }
+  });
+});
+
 
 
 module.exports = router;

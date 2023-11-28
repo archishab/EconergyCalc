@@ -42,7 +42,7 @@ export default function AddApplianceForm(props) {
           setAppliances({
             ...appliance,
             applianceType: response.data["Appliance Type"],
-            applianceName: response.data.Brand,
+            applianceName: `${response.data.Brand} - ${response.data["Appliance Type"]}`,
             powerRating:
               response.data["Total Annual Energy Consumption (kWh/year)"], 
             energyStarCompliant: true,
@@ -135,9 +135,15 @@ export default function AddApplianceForm(props) {
                     value={appliance.applianceType}
                   >
                     <option>Select Appliance Type</option>
-                    <option value="Refrigerator">Refrigerator</option>
-                    <option value="Stove">Stove</option>
+                    <option value="Clothes Dryer">Clothes Dryer</option>
+                    <option value="Clothes Washer-Dryer">Clothes Washer-Dryer</option>
+                    <option value="Clothes Washer">Clothes Washer</option>
+                    <option value="Cooktop">Cooktop</option>
                     <option value="Dishwasher">Dishwasher</option>
+                    <option value="Freezer">Freezer</option>
+                    <option value="Microwave Oven">Microwave Oven</option>
+                    <option value="Oven">Oven</option>
+                    <option value="Refrigerator">Refrigerator</option>
                   </select>
                 </div>
                 <div className="mb-3">

@@ -22,7 +22,8 @@ export default function Dashboard(props) {
   const { showAlert } = props;
   return (
     <div className="container">
-      
+      <Apppliance showAlert={showAlert} />
+      <hr />
       <div className="row my-3">
         <div class="col-5">
           <h3 className="">My Consumption</h3>
@@ -55,7 +56,7 @@ export default function Dashboard(props) {
       {active === "Weekly" ? <WeeklyGraph /> : ""}
       {active === "Monthly" ? <MonthlyGraph /> : ""}
       <hr />
-      <Apppliance showAlert={showAlert} />
+      
     </div>
   );
 }

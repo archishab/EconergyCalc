@@ -185,7 +185,15 @@ router.get("/getrecommendations", fetchuser, async (req, res) => {
 
     const recommendations = appliances.map((appliance) => {
       if (!appliance.energyStarCompliant) {
-        return `You have indicated that ${appliance.applianceName} is not Energy Star Compliant. Consider replacing the appliance with a more energy effecient alternative.`;
+        recommendations.push(`You have indicated that ${appliance.applianceName} is not Energy Star Compliant. Consider replacing it with a more energy-efficient alternative.`);
+      }
+      
+      if (appliance.powerRating > someThresholdValue) {
+        recommendations.push(`The ${appliance.applianceName} has a high power rating. Using it during off-peak hours could reduce your energy bills.`);
+      }
+
+      if (appliance.active && !appliance.energyStarCompliant) {
+        recommendations.push(`Since ${appliance.applianceName} is frequently used and not energy compliant, investing in a new model could lead to long-term savings.`);
       }
     });
 
@@ -196,11 +204,16 @@ router.get("/getrecommendations", fetchuser, async (req, res) => {
   }
 });
 
+function escapeRegExp(string) {
+  // This function will escape all regex special characters for safe insertion into a RegExp
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // ROUTE 8: Fetch appliance detail using model number : GET "/api/appliances/findappliance". Login required
 router.get("/findappliance/:modelNumber", async (req, res) => {
   let results = [];
   fs.createReadStream(
-    "/Users/archishabhattacharya/Library/CloudStorage/OneDrive-Personal/Documents/School/University of Regina/13. Fall 2023/ENSE 405/Project/EconergyCalc/02. Project Development/econergycalc/backend/routes/data/Dishwashers2023-11-24.csv"
+    "/Users/archishabhattacharya/Library/CloudStorage/OneDrive-Personal/Documents/School/University of Regina/13. Fall 2023/ENSE 405/Project/EconergyCalc/02. Project Development/econergycalc/backend/routes/data/ApplianceDB_2023.csv"
   )
   .pipe(csv())
   .on('data', (data) => results.push(data))
@@ -210,8 +223,9 @@ router.get("/findappliance/:modelNumber", async (req, res) => {
 
     // Find the first matching appliance where the .csv file model regex matches the user input
     const appliance = results.find(appliance => {
-      // Create a regex pattern from the .csv file model, replacing wildcard characters
-      const modelRegex = new RegExp('^' + appliance.Model.replace(/[\*\#]/g, '.*') + '$', 'i');
+      // Create a regex pattern from the .csv file model, replacing wildcard characters and escaping regex special characters
+      const modelRegexPattern = '^' + escapeRegExp(appliance.Model).replace(/\\\*/g, '.*').replace(/\\\#/g, '.{1}') + '$';
+      const modelRegex = new RegExp(modelRegexPattern, 'i');
       return modelRegex.test(userInputModel);
     });
     

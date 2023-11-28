@@ -183,14 +183,17 @@ router.get("/getrecommendations", fetchuser, async (req, res) => {
   try {
     const appliances = await Appliance.find({ user: req.user.id });
 
-    const recommendations = appliances.map((appliance) => {
+    // Initialize an empty array for recommendations
+    let recommendations = [];
+
+    appliances.map((appliance) => {
       if (!appliance.energyStarCompliant) {
         recommendations.push(`You have indicated that ${appliance.applianceName} is not Energy Star Compliant. Consider replacing it with a more energy-efficient alternative.`);
       }
       
-      if (appliance.powerRating > someThresholdValue) {
+      if (appliance.powerRating > 100) {
         recommendations.push(`The ${appliance.applianceName} has a high power rating. Using it during off-peak hours could reduce your energy bills.`);
-      }
+      } 
 
       if (appliance.active && !appliance.energyStarCompliant) {
         recommendations.push(`Since ${appliance.applianceName} is frequently used and not energy compliant, investing in a new model could lead to long-term savings.`);

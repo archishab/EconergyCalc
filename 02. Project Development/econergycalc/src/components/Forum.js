@@ -37,70 +37,86 @@ const Forum = (props) => {
   };
   return (
     <div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#addPostModal"
-      >
-        Add New Post
-      </button>
+      <div class="container">
+        <div class="row">
+        <div class="col-sm-8">
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#addPostModal"
+            style={{width: 200}}
+          >
+            Add New Post
+          </button>
+          </div>
+          <div class="col-sm-4">
+            
+          </div>
+          
 
-      <div
-        class="modal fade"
-        id="addPostModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                New Post
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div class="modal-body">
-                {error && <div className="error">{error}</div>}
-                {success && (
-                  <div className="success">Post added successfully!</div>
-                )}
-
-                <div class="form-floating mb-3">
-                  <textarea
-                    class="form-control"
-                    id="postContent"
-                    name="postContent"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    required
-                  />
-                  <label for="floatingInput">Add Content</label>
+          <div
+            class="modal fade"
+            id="addPostModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    New Post
+                  </h1>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
-                
+                <form onSubmit={handleSubmit}>
+                  <div class="modal-body">
+                    {error && <div className="error">{error}</div>}
+                    {success && (
+                      <div className="success">Post added successfully!</div>
+                    )}
+
+                    <div class="form-floating mb-3">
+                      <textarea
+                        class="form-control"
+                        id="postContent"
+                        name="postContent"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        required
+                      />
+                      <label for="floatingInput">Add Content</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                    >
+                      Add Post
+                    </button>
+                  </div>
+                </form>
               </div>
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  data-bs-dismiss="modal"
-                >
-                  Add Post
-                </button>
-              </div>
-            </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <ForumList />
+          </div>
+          <div class="col-sm-4">
+            <Leaderboard />
           </div>
         </div>
       </div>
-      <ForumList />
-      <Leaderboard />
     </div>
   );
 };

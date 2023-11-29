@@ -10,7 +10,7 @@ const ForumList = () => {
   // Fetch posts on component mount
   useEffect(() => {
     fetchPosts();
-  }, []); // The empty array ensures this effect runs only once after the component mounts
+  }); // The empty array ensures this effect runs only once after the component mounts
 
   // Function to fetch posts from the server
   const fetchPosts = async () => {
@@ -38,7 +38,11 @@ const ForumList = () => {
         }
       );
       // Update the posts state with the new like count
-      setPosts(posts.map((post) => (post._id === id ? { ...post, upVote: response.data.upVote } : post)));
+      setPosts(
+        posts.map((post) =>
+          post._id === id ? { ...post, upVote: response.data.upVote } : post
+        )
+      );
     } catch (error) {
       console.error("Error liking the post", error);
     }
@@ -46,9 +50,15 @@ const ForumList = () => {
 
   const dislikePost = async (id) => {
     try {
-      const response = await axios.post(`http://localhost:3030/api/forum/dislikepost/${id}`);
+      const response = await axios.post(
+        `http://localhost:3030/api/forum/dislikepost/${id}`
+      );
       // Update the posts state with the new dislike count
-      setPosts(posts.map(post => post._id === id ? { ...post, downVote: response.data.downVote } : post));
+      setPosts(
+        posts.map((post) =>
+          post._id === id ? { ...post, downVote: response.data.downVote } : post
+        )
+      );
     } catch (error) {
       console.error("Error disliking the post", error);
     }
@@ -67,7 +77,13 @@ const ForumList = () => {
         }
       );
       // Update the posts state to include the new reply
-      setPosts(posts.map((post) => (post._id === postId ? { ...post, replies: [...post.replies, response.data] } : post)));
+      setPosts(
+        posts.map((post) =>
+          post._id === postId
+            ? { ...post, replies: [...post.replies, response.data] }
+            : post
+        )
+      );
     } catch (error) {
       console.error("Error replying to the post", error);
     }
@@ -84,41 +100,91 @@ const ForumList = () => {
   return (
     <div>
       {posts.length > 0 ? (
-        <div className="my-3 p-3 bg-body rounded shadow-sm">
+        <div class="container">
           {posts.map((post) => (
-            <div key={post._id}>
-              <div className="d-flex text-body-secondary py-3">
-                <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <strong className="d-block text-gray-dark">@{post.username}</strong>
-                  {post.content}
-                  <div>
-                    <i class="fa-solid fa-thumbs-up fa-lg me-1" onClick={() => likePost(post._id)}></i>{post.upVote}
-                    <i class="fa-solid fa-thumbs-down fa-lg me-1 ms-3" onClick={() => dislikePost(post._id)}></i>{post.downVote}
-                    <hr/>
+            <div key={post._id} class="my-3 p-3 bg-body rounded shadow">
+              <div class="align-items-center d-flex text-body-secondary pt-3">
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                  <div class="d-flex justify-content-between mb-3 align-items-center">
+                    <i
+                      class="me-2 fa-solid fa-user fa-lg"
+                      style={{ color: "#000000" }}
+                    >
+                      <strong class="text-gray-dark">@{post.username}</strong>
+                    </i>
+
+                    <time dateTime={post.timestamp}>
+                      {new Date(post.timestamp).toLocaleString()}
+                    </time>
                   </div>
-                  <div className="mt-2">
-                    {post.replies && post.replies.map((reply) => (
-                      <div key={reply._id} className="mt-2">
-                        <strong>@{reply.username}</strong>
-                        <p>{reply.content}</p>
-                        <time dateTime={reply.timestamp}>
-                          {new Date(reply.timestamp).toLocaleString()}
-                        </time>
-                      </div>
-                    ))}
-                    <form onSubmit={(e) => {
-                      e.preventDefault();
-                      const content = e.target.elements.reply.value;
-                      replyToPost(content, post._id);
-                      e.target.elements.reply.value = ''; // Clear input after submit
-                    }}>
-                      <textarea name="reply" required placeholder="Write a reply..."></textarea>
-                      <button type="submit">Reply</button>
-                    </form>
-                  </div>
+                  <span class="d-block">{post.content}</span>
                 </div>
               </div>
-              <hr />
+              <div class="pb-3 mb-0 my-2 small lh-sm border-bottom w-100">
+                <div className="my-3">
+                  <i
+                    class="fa-solid fa-thumbs-up fa-2xl me-1"
+                    style={{ color: "#007a14" }}
+                    onClick={() => likePost(post._id)}
+                  ></i>
+                  {post.upVote}
+                  <i
+                    class="fa-solid fa-thumbs-down fa-2xl me-1 ms-3"
+                    style={{ color: "#a80000" }}
+                    onClick={() => dislikePost(post._id)}
+                  ></i>
+                  {post.downVote}
+                </div>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const content = e.target.elements.reply.value;
+                    replyToPost(content, post._id);
+                    e.target.elements.reply.value = "";
+                  }}
+                >
+                  <div class="form-floating my-2">
+                    <textarea
+                      name="reply"
+                      class="form-control"
+                      placeholder="Leave a reply here"
+                      id="floatingTextarea2"
+                      style={{ height: 100 }}
+                      required
+                    ></textarea>
+                    <label for="floatingTextarea2">Leave a reply</label>
+                  </div>
+                  <button class="btn btn-primary" type="submit">
+                    Reply
+                  </button>
+                </form>
+              </div>
+              <div className="mt-2">
+                {post.replies &&
+                  post.replies.map((reply) => (
+                    <div
+                      key={reply._id}
+                      class="align-items-center d-flex text-body-secondary pt-3"
+                    >
+                      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <i
+                            class="me-2 fa-regular fa-comment-dots fa-sm"
+                            style={{ color: "#000000" }}
+                          >
+                            <strong class="p-1 text-gray-dark">
+                              @{reply.username}
+                            </strong>
+                          </i>
+                          <time dateTime={reply.timestamp}>
+                            {new Date(reply.timestamp).toLocaleString()}
+                          </time>
+                        </div>
+                        <span class="d-block">{reply.content}</span>
+                      </div>
+                    </div>
+                  ))}
+              </div>
             </div>
           ))}
         </div>

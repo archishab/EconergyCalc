@@ -119,52 +119,64 @@ const WeeklyEnergyConsumptionChart = () => {
   };
 
   return (
-    <div class="container text-center">
-      <div class="row align-items-center">
-        <div class="col-8">
-          <div class="row">
-            {loading ? (
-              <p>Loading...</p>
-            ) : (
-              <Bar data={chartData} options={chartOptions} />
-            )}
-          </div>
-          <div class="row my-4">
-            <div class="col text-start">
-              <button
-                type="button"
-                class="btn"
-                onClick={goToPreviousWeek}
-                disabled={loading}
-              >
-                Previous Week
-              </button>
+    <>
+      <div class="container text-center">
+        <div class="row align-items-start">
+          <div class="col-sm-7 me-5">
+            <div class="row">
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <Bar data={chartData} options={chartOptions} />
+              )}
             </div>
-            <div class="col-6"></div>
-            <div class="col text-end">
-              <button
-                type="button"
-                class="btn"
-                onClick={goToNextWeek}
-                disabled={loading}
-              >
-                Next Week
-              </button>
+            <div class="row my-4">
+              <div class="col text-start">
+                <button
+                  type="button"
+                  class="btn shadow"
+                  onClick={goToPreviousWeek}
+                  disabled={loading}
+                >
+                  Previous Week
+                </button>
+              </div>
+              <div class="col-6"></div>
+              <div class="col text-end">
+                <button
+                  type="button"
+                  class="btn shadow"
+                  onClick={goToNextWeek}
+                  disabled={loading}
+                >
+                  Next Week
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-4">
-          <div className="weekly-total text-start">
-            <h1 className="display-6">
-              <strong>
-                Total Consumption for Week of {selectedWeek.format("MMM-DD")}
-              </strong>
-              <br /> {weeklyTotal.toFixed(2)} kWh
-            </h1>
+          <div class="col-sm-4 mt-5">
+            <div className="weekly-total text-center p-3 mb-5 rounded shadow">
+              <h4 className="mb-2">
+                <strong>
+                  Total Consumption for <br />
+                  Week of {selectedWeek.format("MMM-DD")}:
+                </strong>
+              </h4>
+              <h4>{weeklyTotal.toFixed(2)} kWh</h4>
+            </div>
+            <div className="weekly-total text-center p-3 rounded shadow">
+              <h4 className="mb-2">
+                <strong>
+                  Total Consumption for <br />
+                  Week of {selectedWeek.format("MMM-DD")}:
+                </strong>
+              </h4>
+              <h4>{weeklyTotal.toFixed(2)} kWh</h4>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

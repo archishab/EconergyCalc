@@ -68,6 +68,10 @@ i {
   cursor: pointer;
 }
 
+.badge {
+  background-color: #F89D2A;
+}
+
 .btn {
   background-color: #FCC30B;
   border-color: #FCC30B;
@@ -77,7 +81,7 @@ i {
 .btn:hover {
   background-color: #D1A103;
   border-color: #D1A103;
-  color: whitesmoke;
+  color: black;
 }
 
 .btn.active {
@@ -91,4 +95,8 @@ i {
   color: white;
   background-color: #FCC30B;
   border-color: #FCC30B;
+}
+
+.weekly-total {
+  background-color: #d1a1033a;
 }

@@ -134,7 +134,7 @@ export default function Appliance(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="active" className="form-label">
-                  Energy Star Compliant?
+                    Energy Star Compliant?
                   </label>
                   <select
                     className="form-select"
@@ -181,29 +181,32 @@ export default function Appliance(props) {
         </div>
       </div>
 
-      <div className="row my-3">
-        <div class="col-5">
-          <h3 className="">My Appliances</h3>
-        </div>
-        <div class="col text-end">
+      <div class="my-3 p-3 bg-body rounded shadow">
+        <h3 class="d-flex justify-content-between border-bottom pb-3 mb-0">
+          My Appliances
+          <div>
           <AddApplianceForm
             heading="Add new Appliance"
             showAlert={props.showAlert}
           />
           <ApplianceTracker />
+          </div>
+        </h3>
+
+        <div class="d-flex text-body-secondary pt-3">
+          <div div className="row row-cols-1 row-cols-md-3 g-4 my-3">
+            {appliances.map((appliance) => {
+              return (
+                <ApplianceItem
+                  key={appliance.id}
+                  updateAppliance={updateAppliance}
+                  appliance={appliance}
+                  showAlert={props.showAlert}
+                />
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div div className="row my-3">
-        {appliances.map((appliance) => {
-          return (
-            <ApplianceItem
-              key={appliance.id}
-              updateAppliance={updateAppliance}
-              appliance={appliance}
-              showAlert={props.showAlert}
-            />
-          );
-        })}
       </div>
     </>
   );

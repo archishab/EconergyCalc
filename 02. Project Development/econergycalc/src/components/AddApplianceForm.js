@@ -76,7 +76,7 @@ export default function AddApplianceForm(props) {
     <>
       <button
         type="button"
-        class="btn me-1"
+        class="btn me-1 shadow"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal1"
       >

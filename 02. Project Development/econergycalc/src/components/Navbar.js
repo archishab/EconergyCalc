@@ -78,20 +78,22 @@ export default function Navbar(props) {
                 <li>
                   <Link
                     to="/dashboard"
-                    className={`nav-link link-body-emphasis ${
+                    className={`nav-link link-body-emphasis mb-2 ${
                       location.pathname === "/dashboard" ? "active" : ""
                     }`}
                   >
+                    <i class="fa-solid fa-chart-simple fa-xl me-2" style={{color: "#000000"}}></i>
                     Dashboard
                   </Link>
                 </li>
                 <li>
                   <Link
                     to="/recommendations"
-                    className={`nav-link link-body-emphasis ${
+                    className={`nav-link link-body-emphasis mb-2 ${
                       location.pathname === "/recommendations" ? "active" : ""
                     }`}
                   >
+                    <i class="fa-solid fa-check-double fa-xl me-2" style={{color: "#000000"}}></i>
                     Recommendations
                     <span class="badge rounded-pill text-bg-danger mx-2">{recommendationsCount}</span>
                   </Link>
@@ -99,10 +101,11 @@ export default function Navbar(props) {
                 <li>
                   <Link
                     to="/forum"
-                    className={`nav-link link-body-emphasis ${
+                    className={`nav-link link-body-emphasis mb-2 ${
                       location.pathname === "/forum" ? "active" : ""
                     }`}
                   >
+                    <i class="fa-solid fa-comments fa-xl me-2" style={{color: "#000000"}}></i>
                     Forum
                   </Link>
                 </li>
@@ -115,27 +118,21 @@ export default function Navbar(props) {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img
-                    src="https://github.com/mdo.png"
-                    alt=""
-                    width="32"
-                    height="32"
-                    className="rounded-circle me-2"
-                  />
+                  <i class="fa-solid fa-circle-user fa-2xl me-2" style={{color: "#000000"}}></i>
                   <strong>{localStorage.getItem("username")}</strong>
                 </Link>
                 <ul
                   className="user-menu dropdown-menu text-small shadow"
                   data-popper-placement="top-star"
                 >
-                  <li>
+                  {/* <li>
                     <Link className="dropdown-item" to="#">
                       Account Settings
                     </Link>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
-                  </li>
+                  </li> */}
                   <li>
                     <button
                       className="dropdown-item"

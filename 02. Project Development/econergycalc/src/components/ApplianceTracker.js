@@ -70,7 +70,7 @@ const ApplianceTracker = ({ userId }) => {
     <>
       <button
         type="button"
-        class="btn ms-1"
+        class="btn ms-1 shadow"
         data-bs-toggle="modal"
         data-bs-target="#logUsageModal"
       >

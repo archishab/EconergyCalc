@@ -164,15 +164,6 @@ const WeeklyEnergyConsumptionChart = () => {
               </h4>
               <h4>{weeklyTotal.toFixed(2)} kWh</h4>
             </div>
-            <div className="weekly-total text-center p-3 rounded shadow">
-              <h4 className="mb-2">
-                <strong>
-                  Total Consumption for <br />
-                  Week of {selectedWeek.format("MMM-DD")}:
-                </strong>
-              </h4>
-              <h4>{weeklyTotal.toFixed(2)} kWh</h4>
-            </div>
           </div>
         </div>
       </div>

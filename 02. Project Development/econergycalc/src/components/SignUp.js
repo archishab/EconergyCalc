@@ -119,7 +119,7 @@ export default function SignUp(props) {
           />
         </div>
         <p><small>Already have an account? Click <Link to="/login">here</Link> to log in.</small></p>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary shadow">
           Submit
         </button>
       </form>

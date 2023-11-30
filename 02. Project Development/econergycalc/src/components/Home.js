@@ -18,7 +18,7 @@ export default function Home() {
             />
           </div>
           <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
-            <h1 className="fw-bold lh-1 text-body-emphasis">
+            <h1 className="fw-bold lh-1 text-body-emphasis ">
             Household Energy Consumption Calculator
             </h1>
             <p className="lead">
@@ -27,7 +27,7 @@ export default function Home() {
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
               <Link
                 to="/login"
-                className="btn btn-warning btn-lg"
+                className="btn btn-warning btn-lg shadow"
                 tabIndex="1"
                 role="button"
               >
@@ -35,7 +35,7 @@ export default function Home() {
               </Link>
               <Link
                 to="/signup"
-                className="btn btn-outline-warning btn-lg"
+                className="btn btn-outline-warning btn-lg shadow"
                 tabIndex="1"
                 role="button"
               >

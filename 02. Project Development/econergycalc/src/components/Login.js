@@ -72,7 +72,7 @@ export default function Login(props) {
             up.
           </small>
         </p>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary shadow">
           Submit
         </button>
       </form>

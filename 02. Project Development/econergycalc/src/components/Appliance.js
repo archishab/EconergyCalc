@@ -180,16 +180,17 @@ export default function Appliance(props) {
           </div>
         </div>
       </div>
+      <AddApplianceForm
+            heading="Add new Appliance"
+            showAlert={props.showAlert}
+          />
+          <ApplianceTracker />
 
       <div class="my-3 p-3 bg-body rounded shadow">
         <h3 class="d-flex justify-content-between border-bottom pb-3 mb-0">
           My Appliances
           <div>
-          <AddApplianceForm
-            heading="Add new Appliance"
-            showAlert={props.showAlert}
-          />
-          <ApplianceTracker />
+          
           </div>
         </h3>
 

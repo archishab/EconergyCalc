@@ -74,6 +74,7 @@ const ApplianceTracker = ({ userId }) => {
         data-bs-toggle="modal"
         data-bs-target="#logUsageModal"
       >
+        <i class="fa-solid fa-gauge-simple-high fa-xl me-2" style={{color: "#000000"}}></i>
         Log Usage
       </button>
 

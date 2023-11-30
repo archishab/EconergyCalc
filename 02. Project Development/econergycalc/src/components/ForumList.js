@@ -154,7 +154,7 @@ const ForumList = () => {
                     ></textarea>
                     <label for="floatingTextarea2">Leave a reply</label>
                   </div>
-                  <button class="btn btn-primary" type="submit">
+                  <button class="btn btn-primary shadow" type="submit">
                     Reply
                   </button>
                 </form>

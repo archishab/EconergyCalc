@@ -37,23 +37,20 @@ const Forum = (props) => {
   };
   return (
     <div>
-      <div class="container">
+      <div class="container align-items-center">
         <div class="row">
-        <div class="col-sm-8">
-        <button
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#addPostModal"
-            style={{width: 200}}
-          >
-            Add New Post
-          </button>
+          <div class="col-sm-8">
+            <button
+              type="button"
+              class="btn btn-primary ms-3 shadow"
+              data-bs-toggle="modal"
+              data-bs-target="#addPostModal"
+              style={{ width: 200 }}
+            >
+              Add New Post
+            </button>
           </div>
-          <div class="col-sm-4">
-            
-          </div>
-          
+          <div class="col-sm-4"></div>
 
           <div
             class="modal fade"

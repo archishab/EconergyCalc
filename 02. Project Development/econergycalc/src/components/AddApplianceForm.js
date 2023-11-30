@@ -80,6 +80,7 @@ export default function AddApplianceForm(props) {
         data-bs-toggle="modal"
         data-bs-target="#exampleModal1"
       >
+        <i class="fa-solid fa-plus fa-xl me-2" style={{color: "#000000"}}></i>
         Add New Appliance
       </button>
       <div

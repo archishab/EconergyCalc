@@ -188,19 +188,26 @@ router.get("/getrecommendations", fetchuser, async (req, res) => {
 
     appliances.map((appliance) => {
       if (!appliance.energyStarCompliant) {
-        recommendations.push(`You have indicated that ${appliance.applianceName} is not Energy Star Compliant. Consider replacing it with a more energy-efficient alternative.`);
+        recommendations.push({
+          applianceName: appliance.applianceName,
+          recommendation: `You have indicated that this appliance is not Energy Star Compliant. Consider replacing it with a more energy-efficient alternative.`
+        });
       }
-      
       if (appliance.powerRating > 100) {
-        recommendations.push(`The ${appliance.applianceName} has a high power rating. Using it during off-peak hours could reduce your energy bills.`);
+        recommendations.push({
+          applianceName: appliance.applianceName,
+          recommendation: `This appliance has a high power rating. Using it during off-peak hours could reduce your energy bills.`
+        });
       } 
-
       if (appliance.active && !appliance.energyStarCompliant) {
-        recommendations.push(`Since ${appliance.applianceName} is frequently used and not energy compliant, investing in a new model could lead to long-term savings.`);
+        recommendations.push({
+          applianceName: appliance.applianceName,
+          recommendation: `Since this appliance is frequently used and not energy compliant, investing in a new model could lead to long-term savings.`
+        });
       }
     });
 
-    res.json({ recommendations, appliances });
+    res.json({ recommendations });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

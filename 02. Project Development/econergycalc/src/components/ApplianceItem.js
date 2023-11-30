@@ -13,7 +13,7 @@ const ApplianceItem = (props) => {
   const { appliance, updateAppliance } = props;
   return (
     <div className="col">
-      <div className="card mb-3 h-100 w-100 shadow">
+      <div className="card mb-3 h-100 w-100 shadow-sm">
         <div className="row g-0 align-items-center card-body">
           <div class="col-md-4">
             {appliance.applianceType==="Clothes Dryer" || appliance.applianceType==="Clothes Washer-Dryer" || appliance.applianceType==="Clothes Washer"? (<img src={washerIcon} class="appliance-icon img-fluid rounded-start"/>) : (<div></div>)} 

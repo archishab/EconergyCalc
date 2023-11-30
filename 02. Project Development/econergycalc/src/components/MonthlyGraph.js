@@ -103,20 +103,20 @@ const MonthlyEnergyConsumptionChart = () => {
   };
 
   return (
-    <div>
+    <>
       <div class="container text-center">
-        <div class="row align-items-center">
-          <div class="col-8">
+        <div class="row align-items-start">
+          <div class="col-sm-7 me-5">
             <div class="row">
-              {!loading && data.length > 0 ? (
+            {!loading && data.length > 0 ? (
                 <Bar data={chartData} options={chartOptions} />
               ) : (
                 <p>No data available</p>
               )}
             </div>
-            <div class="row align-items-center my-4">
+            <div class="row my-4">
               <div class="col text-start">
-                <button
+              <button
                   class="btn"
                   onClick={goToPreviousYear}
                   disabled={loading}
@@ -136,22 +136,24 @@ const MonthlyEnergyConsumptionChart = () => {
               </div>
             </div>
           </div>
-          <div class="col-4">
-            <div className="yearly-total text-start">
-              <h1 className="display-6">
-                <strong>Total Consumption for {currentYear}:</strong>
-                <br />
-                {monthlyConsumption
+          <div class="col-sm-4 mt-5">
+            <div className="weekly-total text-center p-3 mb-5 rounded shadow">
+              <h4 className="mb-2">
+                <strong>
+                Total Consumption for <br />
+                {currentYear}:
+                </strong>
+              </h4>
+              <h4>{monthlyConsumption
                   .reduce((acc, val) => acc + val, 0)
                   .toFixed(2)}{" "}
-                kWh
-              </h1>
+                kWh</h4>
             </div>
           </div>
         </div>
-        <div class="row align-items-center my-4"></div>
       </div>
-    </div>
+    </>
+    
   );
 };
 

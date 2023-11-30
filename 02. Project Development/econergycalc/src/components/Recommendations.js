@@ -22,23 +22,23 @@ const RecommendationsComponent = (props) => {
       .catch((error) => {
         console.error("Error fetching recommendations:", error);
       });
-  });
+  }, []); // Added empty dependency array to prevent re-fetching on every render
 
   return (
     <div>
-      <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h4 class="border-bottom pb-2 mb-0">{props.heading}</h4>
-        {recommendations.map((rec, index) => {
-        return (   
-      <div class="d-flex text-body-secondary pt-3" key={index}>
-          <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-            <div class="d-flex justify-content-between">
-              <strong class="text-gray-dark">{rec}</strong>
-            </div>
-          </div>
+      <div class="my-3 p-3 bg-body rounded shadow">
+        <h3 class="border-bottom pb-2 mb-0">{props.heading}</h3>
+        {recommendations.map((rec, index) => (
+
+        
+        <div class="d-flex text-body-secondary pt-3" key={index}>
+          <i class="fa-solid fa-ellipsis-vertical fa-xl me-3 mt-3"></i>
+          <p class="pb-3 mb-0 small lh-sm border-bottom">
+            <strong class="d-block text-gray-dark">{rec.applianceName}</strong>
+            {rec.recommendation}
+          </p>
         </div>
-        );
-      })}
+        ))}
       </div>
     </div>
   );

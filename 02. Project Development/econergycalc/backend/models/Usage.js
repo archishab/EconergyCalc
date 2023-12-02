@@ -11,8 +11,8 @@ const usageSchema = new Schema({
     ref: "appliances",
   },
   duration: Number, // in seconds
-  energyConsumed: Number, // in kWh
-  timestamp: { type: Date, default: Date.now },
+  energyConsumed: Number, // in kWh / year
+  timestamp: Date,
 });
 
 module.exports = mongoose.model("usage", usageSchema);

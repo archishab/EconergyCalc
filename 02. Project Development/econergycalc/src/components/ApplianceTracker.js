@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Stopwatch from "./Stopwatch";
 
-const ApplianceTracker = ({ userId }) => {
+const ApplianceTracker = ({ userId }, props) => {
   const [appliances, setAppliances] = useState([]);
   const [selectedApplianceId, setSelectedApplianceId] = useState("");
   const [selectedApplianceUserId, setSelectedApplianceUserId] = useState("");
@@ -59,6 +59,7 @@ const ApplianceTracker = ({ userId }) => {
         })
         .then((response) => {
           console.log("Appliance usage added successfully:", response.data);
+          alert("Appliance usage added successfully", "success")
         })
         .catch((error) => {
           console.error("Error submitting appliance usage:", error);
@@ -142,7 +143,7 @@ const ApplianceTracker = ({ userId }) => {
 };
 
 const calculateEnergyConsumption = (powerRating, seconds) => {
-  return (powerRating * seconds) / 3600; // Convert to kWh
+  return ((powerRating * seconds) / 3600) / 365; // Convert to kWh
 };
 
 export default ApplianceTracker;

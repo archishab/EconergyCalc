@@ -6,6 +6,7 @@ const { body, query, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
 const Appliance = require("../models/Appliance");
 const ApplianceUsage = require("../models/Usage");
+const moment = require('moment-timezone');
 
 // ROUTE 1: Fetch user's appliances : GET "/api/appliances/fetchallappliance". Login required
 router.get("/fetchallappliance", fetchuser, async (req, res) => {
@@ -152,11 +153,15 @@ router.post("/usage", async (req, res) => {
   try {
     const { user, appliance, duration, energyConsumed } = req.body;
 
+    const timestamp = moment().tz('America/Chicago').startOf('day').toDate();
+
+
     const newUsage = new ApplianceUsage({
       user,
       appliance,
       duration,
       energyConsumed,
+      timestamp
     });
 
     await newUsage.save();

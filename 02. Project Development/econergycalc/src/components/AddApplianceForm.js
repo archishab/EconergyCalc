@@ -6,6 +6,10 @@ export default function AddApplianceForm(props) {
   const context = useContext(ApplianceContext);
   const { addAppliance } = context;
   const [modelNumber, setModelNumber] = useState("");
+  const [noApplianceFoundMsg, setNoApplianceFoundMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
+
 
   const [appliance, setAppliances] = useState({
     applianceType: "",
@@ -48,6 +52,11 @@ export default function AddApplianceForm(props) {
             energyStarCompliant: true,
           });
           console.log("Updated State:", appliance); 
+          setSuccessMsg("Appliance found successfully.");
+          setNoApplianceFoundMsg("");
+        } else {
+          setNoApplianceFoundMsg("No appliance found for the provided model number. Please enter your appliance manually.");
+          setSuccessMsg("");
         }
       } catch (error) {
         console.error("Error fetching appliance data", error);
@@ -59,6 +68,8 @@ export default function AddApplianceForm(props) {
           energyStarCompliant: "",
           active: "",
         });
+        setNoApplianceFoundMsg("Error occurred while fetching data. Please enter your appliance manually.");
+        setSuccessMsg("");
       }
     }
   };
@@ -105,6 +116,20 @@ export default function AddApplianceForm(props) {
             </div>
             <form>
               <div class="modal-body">
+                                {
+                    noApplianceFoundMsg && (
+                      <div className="alert alert-danger" role="alert">
+                        {noApplianceFoundMsg}
+                      </div>
+                    )
+                  }
+                  {
+  successMsg && (
+    <div className="alert alert-success" role="alert">
+      {successMsg}
+    </div>
+  )
+}
                 <div className="mb-3">
                   <label htmlFor="modelNumber" className="form-label">
                     Model Number
@@ -124,6 +149,8 @@ export default function AddApplianceForm(props) {
                     </button>
                   </div>
                 </div>
+                <p><i class="fa-solid fa-circle-info me-2" style={{ color: "#878787" }}></i><small><em>Search for your appliance using model number or manually enter your appliance detail</em></small></p>
+                <hr/>
                 <div className="mb-3">
                   <label htmlFor="applianceType" className="form-label">
                     Appliance Type
@@ -149,7 +176,7 @@ export default function AddApplianceForm(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="applianceName" className="form-label">
-                    Appliance Name
+                    Brand
                   </label>
                   <input
                     type="text"
@@ -162,7 +189,7 @@ export default function AddApplianceForm(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="powerRating" className="form-label">
-                    Power Rating
+                    Energy Consumption (kWh / year)
                   </label>
                   <input
                     type="number"
@@ -175,7 +202,7 @@ export default function AddApplianceForm(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="energyStarCompliant" className="form-label">
-                    Energy Star Compliant?
+                    Energy Star Compliant? <i class="fa-solid fa-circle-question fa-lg" style={{color: "#3F7E44"}}></i>
                   </label>
                   <select
                     className="form-select"

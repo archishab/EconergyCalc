@@ -47,7 +47,7 @@ const ApplianceItem = (props) => {
                 {appliance.applianceName}
               </h5>
               <p className="card-text">
-                {appliance.applianceType} - {appliance.powerRating} kWh
+                {appliance.applianceType}<br/>{appliance.powerRating} kWh / year
               </p>
               <p class="card-text">
                 <i

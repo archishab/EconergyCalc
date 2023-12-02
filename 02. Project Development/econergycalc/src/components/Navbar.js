@@ -39,7 +39,7 @@ export default function Navbar(props) {
 
   return (
     <>
-      <nav className="navbar bg-body-tertiary d-flex">
+      <nav className="navbar bg-body-tertiary d-flex shadow">
         <div className="container-fluid">
           {localStorage.getItem("token") ? (
             <button

@@ -92,19 +92,28 @@ export default function Appliance(props) {
             </div>
             <form>
               <div class="modal-body">
-                <div className="mb-3">
+              <div className="mb-3">
                   <label htmlFor="applianceType" className="form-label">
                     Appliance Type
                   </label>
-                  <input
-                    type="text"
-                    className="form-control"
+                  <select
+                    className="form-select"
+                    id="applianceType"
+                    name="applianceType"
                     onChange={onChange}
-                    id="eapplianceType"
-                    name="eapplianceType"
                     value={appliance.eapplianceType}
-                    disabled
-                  />
+                  >
+                    <option>Select Appliance Type</option>
+                    <option value="Clothes Dryer">Clothes Dryer</option>
+                    <option value="Clothes Washer-Dryer">Clothes Washer-Dryer</option>
+                    <option value="Clothes Washer">Clothes Washer</option>
+                    <option value="Cooktop">Cooktop</option>
+                    <option value="Dishwasher">Dishwasher</option>
+                    <option value="Freezer">Freezer</option>
+                    <option value="Microwave Oven">Microwave Oven</option>
+                    <option value="Oven">Oven</option>
+                    <option value="Refrigerator">Refrigerator</option>
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="applianceName" className="form-label">
@@ -121,7 +130,7 @@ export default function Appliance(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="powerRating" className="form-label">
-                    Power Rating
+                  Energy Consumption (kWh / year)
                   </label>
                   <input
                     type="number"
@@ -134,7 +143,7 @@ export default function Appliance(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="active" className="form-label">
-                    Energy Star Compliant?
+                    Energy Star Compliant? <i class="fa-solid fa-circle-question fa-lg" style={{color: "#3F7E44"}}></i>
                   </label>
                   <select
                     className="form-select"
@@ -181,22 +190,28 @@ export default function Appliance(props) {
         </div>
       </div>
       <AddApplianceForm
-            heading="Add new Appliance"
-            showAlert={props.showAlert}
-          />
-          <ApplianceTracker />
+        heading="Add new Appliance"
+        showAlert={props.showAlert}
+      />
+      <ApplianceTracker />
 
       <div class="my-3 p-3 bg-body rounded shadow">
-        <h3 class="d-flex justify-content-between border-bottom pb-3 mb-0">
-          My Appliances
+        <div class="d-flex justify-content-between border-bottom pb-3 mb-0">
+          <h3>My Appliances</h3>
           <div>
-          
+            <i class="fa-solid fa-leaf me-2" style={{ color: "#3f7e44" }}></i>-
+            Energy Effecient <br />
+            <i
+              class="fa-solid fa-circle-exclamation me-2"
+              style={{ color: "#ad0b0b" }}
+            ></i>
+            - Not Energy Effecient
           </div>
-        </h3>
-
+        </div>
         <div class="d-flex text-body-secondary pt-3">
-          <div div className="row row-cols-1 row-cols-md-3 g-4 my-3">
-            {appliances.map((appliance) => {
+        {appliances.length > 0 ? ( <div></div> ) : (<p><strong>No appliance added yet</strong></p>)}
+        <div className="row row-cols-1 row-cols-md-3 g-4 my-3">
+        {appliances.map((appliance) => {
               return (
                 <ApplianceItem
                   key={appliance.id}
@@ -206,7 +221,7 @@ export default function Appliance(props) {
                 />
               );
             })}
-          </div>
+            </div>
         </div>
       </div>
     </>

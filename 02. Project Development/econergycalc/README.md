@@ -3,6 +3,7 @@
 ## Prerequisites:
 - Node.js
 - npm (Node Package Manager)
+- MongoDB Compass
 
 ## Steps:
 1. Clone the repository to your local machine using git clone 
@@ -23,6 +24,12 @@ npm run both
 ```
 5. Open your web browser and visit `http://localhost:3000` to view the application.
 
+# MongoDB Compass Setup
+## Connecting to the Database:
+- Install MongoDB Compass from the official MongoDB website.
+- Open MongoDB Compass and connect to your database using the connection string provided in your config file or environment variables.
+- Once connected, you can view, insert, modify, and delete the documents in your collections as needed
+
 # How to Use
 
 ## Register & Login:
@@ -40,11 +47,7 @@ npm run both
 - View weekly, and monthly energy consumption trends in the 'Dashboard'.
 - Receive personalized energy-saving recommendations based on your usage patterns in the Recommendations tab.
 
-Community Forum:
-
-Join the forum to share tips and engage with the community.
-Utilize tags for easy topic discovery and contribute to discussions.
-Feedback:
-
-Provide feedback through the 'Contact Us' feature for any app-related queries or suggestions.
-For detailed app documentation and contribution guidelines, please refer to the docs directory.
+## Community Forum:
+- Click on the 'Add New Post' button on the Forum page to add a new post.
+- Users can like or dislike other posts as well as leave a reply.
+- With each like on a post, its author receives a point. Users with the most points are showcased in a Leaderboard.

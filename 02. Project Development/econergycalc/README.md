@@ -9,11 +9,21 @@
 ```
 https://github.com/archishab/EconergyCalc.git
 ```
-2. Navigate to the cloned directory using cd EconergyCalc
-Install the required node modules by running npm install
-Start the application with npm start
-Open your web browser and visit http://localhost:3000 to view the application.
-How to Use
+2. Navigate to the cloned directory using 
+```
+cd EconergyCalc
+```
+3. Install the required node modules by running 
+```
+npm install
+```
+4. Start the application with 
+```
+npm start
+```
+5. Open your web browser and visit `http://localhost:3000` to view the application.
+
+# How to Use
 
 Register & Login:
 

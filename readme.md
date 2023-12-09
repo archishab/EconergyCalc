@@ -5,7 +5,7 @@
 ### EconergyCalc - Household Energy Consumption Calculator
 
 
-## 📽️ Project Commercial
+## 🖥️ Project Commercial
 - [Project Commercial - EconergyCalc](https://www.youtube.com/watch?v=VxUQfdhj0Pg)
 
 ## 📍 Introduction

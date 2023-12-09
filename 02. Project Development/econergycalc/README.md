@@ -6,7 +6,9 @@
 
 ## Steps:
 1. Clone the repository to your local machine using git clone 
-```https://github.com/archishab/EconergyCalc.git```
+```
+https://github.com/archishab/EconergyCalc.git
+```
 2. Navigate to the cloned directory using cd EconergyCalc
 Install the required node modules by running npm install
 Start the application with npm start

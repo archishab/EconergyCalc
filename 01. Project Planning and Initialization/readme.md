@@ -1,2 +1,2 @@
 # Project Planning and Initialization
-This folder contains documentations, architectural diagram and prototypes for the planning and initialization phase of the project. Mode details about this section is outlined in this [vlog](https://youtu.be/W8Ec0j0buvk).
+This folder contains documentations, architectural diagram and prototypes for the planning and initialization phase of the project. More details about this section is outlined in this [vlog](https://youtu.be/W8Ec0j0buvk).

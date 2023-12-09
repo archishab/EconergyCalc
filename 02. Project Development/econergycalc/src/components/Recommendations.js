@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const RecommendationsComponent = (props) => {
   const [recommendations, setRecommendations] = useState([]);
@@ -39,7 +40,10 @@ const RecommendationsComponent = (props) => {
           </p>
         </div>
         ))}
+        <br/>
+        <Link to="https://natural-resources.canada.ca/energy-efficiency/energy-star-canada/energy-star-products/list-energy-star-certified-products/13631"><i class="fa-solid fa-circle-question fa-lg me-2" style={{color: "#3F7E44"}}></i>Learn more</Link>
       </div>
+      
     </div>
   );
 };

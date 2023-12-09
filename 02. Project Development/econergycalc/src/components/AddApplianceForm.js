@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import ApplianceContext from "../context/appliances/ApplianceContext";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddApplianceForm(props) {
   const context = useContext(ApplianceContext);
@@ -202,7 +203,7 @@ export default function AddApplianceForm(props) {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="energyStarCompliant" className="form-label">
-                    Energy Star Compliant? <i class="fa-solid fa-circle-question fa-lg" style={{color: "#3F7E44"}}></i>
+                    Energy Star Compliant? <Link to="https://natural-resources.canada.ca/energy-efficiency/energy-star-canada/about/22177"><i class="fa-solid fa-circle-question fa-lg me-2" style={{color: "#3F7E44"}}></i>Learn more</Link>
                   </label>
                   <select
                     className="form-select"

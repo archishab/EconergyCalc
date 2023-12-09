@@ -17,27 +17,29 @@ cd EconergyCalc
 ```
 npm install
 ```
-4. Start the application with 
+4. Start the application and the server with 
 ```
-npm start
+npm run both
 ```
 5. Open your web browser and visit `http://localhost:3000` to view the application.
 
 # How to Use
 
-Register & Login:
+## Register & Login:
+- Start by creating an account with the 'Register' feature.
+- Once registered, log in to access your dashboard.
 
-Start by creating an account with the 'Register' feature.
-Once registered, log in to access your dashboard.
-Adding Appliances:
+## Adding Appliances:
+- Click on the 'Add Appliance' button on the dashboard.
+- Enter the appliance details including type, brand, power rating, Energy Star compliancy and whether its active.
+- Alternatively, search with a model number to automatically find and fetch appliance details.
 
-Navigate to the 'Add Appliance' section.
-Enter the appliance details including name, power rating, and usage hours.
-Alternatively, use the camera feature to automatically capture and upload appliance details.
-Tracking Consumption:
+## Tracking Consumption:
+- Click on the 'Log Usage' button on the dashboard.
+- Add the time the appliance is used for by using the stopwatch or enetring a time in seconds.
+- View weekly, and monthly energy consumption trends in the 'Dashboard'.
+- Receive personalized energy-saving recommendations based on your usage patterns in the Recommendations tab.
 
-View daily, weekly, and monthly energy consumption trends in the 'Dashboard'.
-Receive personalized energy-saving recommendations based on your usage patterns.
 Community Forum:
 
 Join the forum to share tips and engage with the community.
